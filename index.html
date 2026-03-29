@@ -131,30 +131,25 @@
         .badge-btn { cursor: pointer; pointer-events: auto !important; }
         .badge-btn:active { background: var(--rimuru-main); color: white; box-shadow: 0 0 15px var(--rimuru-glow); transform: scale(0.9); }
 
-        /* --- LOGIKA SHOW/HIDE LAYER (FIX TOTAL ANTI-NUMPUK) --- */
+        /* --- LOGIKA SHOW/HIDE LAYER --- */
         .layer-folder, .layer-file, .layer-gms, .layer-kaeblox, .layer-kaeblox-file { display: none !important; }
         .layer-root { display: table-row-group; }
 
-        /* Ketika Apps Dibuka */
         #control-apps:checked ~ table .layer-root { display: none !important; }
         #control-apps:checked ~ table .layer-folder { display: table-row-group !important; }
 
-        /* Ketika YouTube Dibuka (Folder Apps Harus Sembunyi) */
         #control-kaetube:checked ~ table .layer-root { display: none !important; }
         #control-kaetube:checked ~ table .layer-folder { display: none !important; }
         #control-kaetube:checked ~ table .layer-file { display: table-row-group !important; }
 
-        /* Ketika GMS Dibuka (File YouTube & Folder Apps Harus Sembunyi) */
         #control-gms:checked ~ table .layer-root { display: none !important; }
         #control-gms:checked ~ table .layer-folder { display: none !important; }
         #control-gms:checked ~ table .layer-file { display: none !important; }
         #control-gms:checked ~ table .layer-gms { display: table-row-group !important; }
 
-        /* Ketika Folder Kaeblox Dibuka */
         #control-kaeblox:checked ~ table .layer-root { display: none !important; }
         #control-kaeblox:checked ~ table .layer-kaeblox { display: table-row-group !important; }
 
-        /* Ketika File Kaeblox Dibuka */
         #control-kaeblox-file:checked ~ table .layer-root { display: none !important; }
         #control-kaeblox-file:checked ~ table .layer-kaeblox { display: none !important; }
         #control-kaeblox-file:checked ~ table .layer-kaeblox-file { display: table-row-group !important; }
@@ -170,10 +165,34 @@
             text-transform: uppercase; opacity: 0.8; position: relative; z-index: 10;
             display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-        
-        .roblox-logo { width: 24px; height: 24px; background: var(--rimuru-light); transform: rotate(-15deg); border-radius: 4px; position: relative; }
+
+        /* --- IKON ROBLOX (KOTAK MIRING) --- */
+        .roblox-logo { 
+            width: 24px; height: 24px; background: var(--rimuru-light); 
+            transform: rotate(-15deg); border-radius: 4px; position: relative; 
+        }
         .roblox-logo::after { content: ''; position: absolute; top: 25%; left: 25%; width: 50%; height: 50%; background: #0f172a; border-radius: 2px; }
-        .svg-icon-blue { width: 28px; height: 28px; fill: var(--rimuru-light); filter: drop-shadow(0 0 8px var(--rimuru-glow)); transform: rotate(-10deg); }
+        .svg-icon-blue { width: 28px; height: 28px; fill: var(--rimuru-light); transform: rotate(-10deg); }
+
+        /* ======================================================= */
+        /* --- KUSTOMISASI ANIMASI CAHAYA (AMAN TANPA MERUBAH IKON) --- */
+        /* ======================================================= */
+
+        /* Glow berkala untuk ikon Roblox & SVG Premium App */
+        .roblox-logo, .svg-icon-blue {
+            animation: glowPulseAll 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulseAll {
+            0%, 100% { 
+                filter: drop-shadow(0 0 2px var(--rimuru-glow)); 
+                opacity: 0.9; 
+            }
+            50% { 
+                filter: drop-shadow(0 0 10px var(--rimuru-light)); 
+                opacity: 1; 
+            }
+        }
     </style>
 </head>
 <body>
