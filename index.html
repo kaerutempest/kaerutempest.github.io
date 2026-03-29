@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark only">
-    <title>KaeruShi Tempest // Cloud Archive</title>
+    <title>KaeruShi Tempest</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono&family=Syne:wght@800&display=swap" rel="stylesheet">
     <style>
-        /* --- CONFIGURASI DASAR --- */
+        /* --- KONFIGURASI DASAR --- */
         html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
         :root {
             --rimuru-light: #7dd3fc !important;
@@ -15,7 +15,7 @@
             --rimuru-glow: rgba(14, 165, 233, 0.4) !important;
             --bg-deep: #020617 !important;
             --glass: rgba(15, 23, 42, 0.95) !important;
-            --border: rgba(14, 165, 233, 0.25) !important;
+            --border: rgba(14, 165, 233, 0.15) !important;
             --blush-color: rgba(244, 114, 182, 0.8) !important;
         }
         body {
@@ -30,15 +30,20 @@
             content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
             pointer-events: none; z-index: 1;
             background-image: 
-                radial-gradient(circle at 15% 15%, rgba(125, 211, 252, 0.12) 0%, rgba(0,0,0,0) 45%),
-                radial-gradient(circle at 85% 85%, rgba(14, 165, 233, 0.12) 0%, rgba(0,0,0,0) 45%);
+                radial-gradient(circle at 15% 15%, rgba(125, 211, 252, 0.1) 0%, rgba(0,0,0,0) 45%),
+                radial-gradient(circle at 85% 85%, rgba(14, 165, 233, 0.1) 0%, rgba(0,0,0,0) 45%);
             animation: rimuruSoftAura 12s ease-in-out infinite; filter: blur(8px);
         }
         @keyframes rimuruSoftAura { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.03); } }
 
         /* --- WRAPPER & HEADER --- */
-        .wrapper { width: 100%; max-width: 800px; padding: 60px 20px 40px 20px; flex: 1; z-index: 10; box-sizing: border-box; position: relative; }
-        header { margin-bottom: 40px; text-align: center; width: 100%; }
+        .wrapper { 
+            width: 100%; 
+            max-width: 600px; 
+            padding: 60px 24px 40px 24px;
+            flex: 1; z-index: 10; box-sizing: border-box; position: relative; 
+        }
+        header { margin-bottom: 30px; text-align: center; width: 100%; }
         
         .header-title-wrap {
             display: flex; align-items: center; justify-content: center; gap: 12px;
@@ -46,16 +51,18 @@
         }
 
         .animated-title {
-            font-family: 'Syne', sans-serif; font-size: 1.8rem; margin: 0;
+            font-family: 'Syne', sans-serif; 
+            font-size: 2rem; 
+            margin: 0;
             background: linear-gradient(90deg, #ffffff 0%, var(--rimuru-light) 25%, var(--rimuru-main) 50%, var(--rimuru-light) 75%, #ffffff 100%);
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-weight: 800; position: relative;
             animation: colorFlow 2s linear infinite, liquidFloat 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 10px var(--rimuru-glow));
-            display: inline-flex; align-items: center; gap: 10px;
+            filter: drop-shadow(0 0 12px var(--rimuru-glow));
+            display: inline-flex; align-items: center; gap: 12px;
         }
         .animated-title::after {
-            content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px;
+            content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2.5px;
             background: var(--rimuru-light); box-shadow: 0 0 15px var(--rimuru-main);
             transform-origin: left; animation: loadingLine 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
@@ -63,18 +70,18 @@
         @keyframes liquidFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
         @keyframes loadingLine { 0% { transform: scaleX(0); opacity: 0.2; transform-origin: left; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0.2; transform-origin: right; } }
 
-        .subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rimuru-light); letter-spacing: 4px; margin-top: 20px; opacity: 0.9; }
+        .subtitle { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--rimuru-light); letter-spacing: 4px; margin-top: 20px; opacity: 0.8; }
 
         /* --- PASUKAN SLIME --- */
         .slime-footer-wrap {
             display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 30px;
-            position: relative; margin: 0 auto -1px auto;
+            position: relative; margin: 0 auto 20px auto;
             height: 60px; z-index: 20; pointer-events: none; width: 100%;
         }
         .slime-unit { display: flex; flex-direction: column; align-items: center; position: relative; }
         .slime-character {
             width: 50px; height: 35px; border-radius: 50% 50% 45% 45% / 65% 65% 35% 35%;
-            position: relative; box-shadow: inset 0 -4px 10px rgba(255,255,255,0.3); transform-origin: bottom center;
+            position: relative; box-shadow: inset 0 -5px 12px rgba(255,255,255,0.3); transform-origin: bottom center;
         }
         .slime-character::before { content: ''; position: absolute; top: 12%; left: 22%; width: 12px; height: 7px; background: rgba(255, 255, 255, 0.4); border-radius: 50%; filter: blur(1px); }
         
@@ -85,16 +92,13 @@
         .blush.kiri { left: 18%; }
         .blush.kanan { right: 18%; }
 
-        .slime-unit.rimuru .slime-character { background: radial-gradient(circle at 35% 30%, #7dd3fc 0%, #0ea5e9 60%, #0369a1 100%); filter: drop-shadow(0 0 10px var(--rimuru-glow)); animation: rimuruWobbleDiam 4.5s ease-in-out infinite, rimuruJumpFisika 4.5s ease-in-out infinite; }
+        .slime-unit.rimuru .slime-character { background: radial-gradient(circle at 35% 30%, #7dd3fc 0%, #0ea5e9 60%, #0369a1 100%); filter: drop-shadow(0 0 12px var(--rimuru-glow)); animation: rimuruWobbleDiam 4.5s ease-in-out infinite, rimuruJumpFisika 4.5s ease-in-out infinite; }
         .slime-unit.rimuru .mata, .slime-unit.rimuru .blush { animation: rimuruEyeLook 4.5s ease-in-out infinite; } .slime-unit.rimuru .blush { background: var(--blush-color); }
-        
-        .slime-unit.angry .slime-character { background: radial-gradient(circle at 35% 30%, #fca5a5 0%, #ef4444 60%, #b91c1c 100%); filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.4)); animation: rimuruWobbleDiam 3.2s ease-in-out infinite, angryJump 3.2s ease-in-out infinite; }
+        .slime-unit.angry .slime-character { background: radial-gradient(circle at 35% 30%, #fca5a5 0%, #ef4444 60%, #b91c1c 100%); filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.4)); animation: rimuruWobbleDiam 3.2s ease-in-out infinite, angryJump 3.2s ease-in-out infinite; }
         .slime-unit.angry .mata { border-bottom: none; border-top: 3px solid #1e293b; border-radius: 50% 50% 0 0; top: 38%; } .slime-unit.angry .blush { background: #f43f5e; }
-
-        .slime-unit.sleepy .slime-character { background: radial-gradient(circle at 35% 30%, #86efac 0%, #22c55e 60%, #15803d 100%); filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.4)); animation: sleepyWobble 6s ease-in-out infinite; }
+        .slime-unit.sleepy .slime-character { background: radial-gradient(circle at 35% 30%, #86efac 0%, #22c55e 60%, #15803d 100%); filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.4)); animation: sleepyWobble 6s ease-in-out infinite; }
         .slime-unit.sleepy .mata { border-bottom: none; border-top: 2.5px solid #1e293b; border-radius: 0; height: 1px; top: 45%; } .slime-unit.sleepy .blush { background: #10b981; }
-
-        .slime-unit.happy .slime-character { background: radial-gradient(circle at 35% 30%, #fde047 0%, #eab308 60%, #a16207 100%); filter: drop-shadow(0 0 10px rgba(234, 179, 8, 0.4)); animation: rimuruWobbleDiam 2.5s ease-in-out infinite, happyJump 2.5s ease-in-out infinite; }
+        .slime-unit.happy .slime-character { background: radial-gradient(circle at 35% 30%, #fde047 0%, #eab308 60%, #a16207 100%); filter: drop-shadow(0 0 12px rgba(234, 179, 8, 0.4)); animation: rimuruWobbleDiam 2.5s ease-in-out infinite, happyJump 2.5s ease-in-out infinite; }
         .slime-unit.happy .mata { width: 6px; height: 6px; background: #1e293b; border: none; border-radius: 50%; top: 40%; } .slime-unit.happy .blush { background: #f97316; }
 
         @keyframes rimuruJumpFisika { 0%, 100% { transform: translateY(0) scale(1, 1); } 15% { transform: translateY(0) scale(1.18, 0.8); } 35% { transform: translateY(-15px) scale(0.9, 1.15); } 50% { transform: translateY(0) scale(1.15, 0.85); } 65% { transform: translateY(0) scale(1, 1.05); } 80%, 90% { transform: translateY(0) scale(1, 1); } }
@@ -104,32 +108,148 @@
         @keyframes rimuruWobbleDiam { 0%, 65%, 100% { border-radius: 50% 50% 45% 45% / 65% 65% 35% 35%; } 75% { border-radius: 55% 45% 50% 50% / 65% 60% 40% 35%; } 85% { border-radius: 45% 55% 50% 50% / 60% 65% 35% 40%; } }
         @keyframes rimuruEyeLook { 0%, 65%, 100% { transform: translateX(0); } 75% { transform: translateX(-1.5px); } 85% { transform: translateX(1.5px); } }
 
+        /* --- GLOWING EDGE SEARCH BAR --- */
+        .search-container {
+            width: 100%; max-width: 460px; margin: 0 auto 25px auto; position: relative; z-index: 15;
+            display: flex; gap: 10px; align-items: center;
+        }
+        .search-wrapper { position: relative; flex: 1; }
+        .search-input {
+            width: 100%; 
+            padding: 14px 18px 14px 48px; 
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 12px;
+            color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; 
+            font-size: 14px; 
+            box-sizing: border-box; transition: all 0.3s ease;
+        }
+        .search-input:focus { 
+            outline: none; 
+            border-color: var(--rimuru-main); 
+            background: rgba(15, 23, 42, 0.85); 
+            box-shadow: 0 0 15px var(--rimuru-glow);
+        }
+        .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; fill: #64748b; pointer-events: none; transition: 0.2s; }
+        .search-input:focus + .search-icon { fill: var(--rimuru-light); }
+
+        .search-btn {
+            background: rgba(14, 165, 233, 0.1); 
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 12px; 
+            width: 48px; height: 48px; 
+            display: flex;
+            align-items: center; justify-content: center; cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .search-btn:hover { background: rgba(14, 165, 233, 0.25); border-color: var(--rimuru-light); box-shadow: 0 0 12px var(--rimuru-glow); }
+        .search-btn:active { transform: scale(0.95); }
+        .play-icon { width: 16px; height: 16px; fill: var(--rimuru-light); transition: 0.2s; }
+        .search-btn:hover .play-icon { fill: #fff; }
+
         /* --- SISTEM TABEL --- */
         .table-container { 
-            background: var(--glass); border-radius: 24px; border: 1px solid var(--border); 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(14, 165, 233, 0.1); 
+            background: var(--glass); border-radius: 20px; border: 1px solid var(--border); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
             overflow: hidden; position: relative; z-index: 15;
+            width: 100%;
         }
         table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 22px 30px; background: rgba(14, 165, 233, 0.08); font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid var(--border); }
+        th { 
+            text-align: left; 
+            padding: 18px 24px; 
+            background: rgba(14, 165, 233, 0.05); 
+            font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 2.5px; 
+            border-bottom: 1px solid rgba(14, 165, 233, 0.1); 
+        }
         
-        .row-base { border-bottom: 1px solid rgba(255, 255, 255, 0.03); transition: all 0.2s ease; }
-        .row-base:has(label:active) { transform: scale(0.985); background: rgba(14, 165, 233, 0.1); }
+        .row-base { border-bottom: 1px solid rgba(255, 255, 255, 0.02); transition: all 0.2s ease; }
+        .row-base:hover { background: rgba(255, 255, 255, 0.01); }
+        .row-base:has(label:active) { background: rgba(14, 165, 233, 0.05); }
 
-        .cell-content { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; }
-        .nav-label { display: flex; align-items: center; gap: 20px; color: #fff; transition: 0.3s; cursor: pointer; flex-grow: 1; }
-        .nav-label:hover { color: var(--rimuru-light); }
-
-        .icon-square { 
-            min-width: 52px; width: 52px; height: 52px; background: #0f172a; border: 1.5px solid var(--border); 
-            border-radius: 16px; display: flex; align-items: center; justify-content: center; transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        .cell-content { 
+            padding: 16px 24px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 16px; 
+            flex-wrap: nowrap;
         }
 
-        .badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 6px 12px; border-radius: 8px; background: rgba(14, 165, 233, 0.1); color: var(--rimuru-light); border: 1px solid var(--border); transition: all 0.2s ease; }
-        .status-badge { pointer-events: none; }
+        .nav-label { 
+            display: flex; 
+            align-items: center; 
+            gap: 16px; 
+            color: #fff; 
+            transition: 0.2s; 
+            cursor: pointer; 
+            flex: 1; 
+            min-width: 0; 
+        }
+        .nav-label:hover { color: var(--rimuru-light); }
+
+        .text-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 4px; 
+            min-width: 0;
+            flex: 1;
+        }
+        
+        /* --- TEKS FOLDER DAN FILE (PAS DAN IDEAL) --- */
+        .text-wrap strong {
+            font-size: 15.5px; /* DARI 17px DITURUNKAN KE 15.5px */
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Teks deskripsi kecil diringkas kembali */
+        .text-wrap span {
+            font-size: 11px !important; 
+        }
+
+        /* --- IKON MENU WEB (UKURAN LEBIH IDEAL) --- */
+        .icon-square { 
+            min-width: 48px; width: 48px; height: 48px; /* DARI 54px DITURUNKAN KE 48px */
+            background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(14, 165, 233, 0.1); 
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; transition: 0.2s;
+            flex-shrink: 0;
+        }
+
+        /* --- BADGE & TOMBOL --- */
+        .badge { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 11px; 
+            padding: 6px 14px; 
+            border-radius: 8px; 
+            background: rgba(14, 165, 233, 0.08); 
+            color: var(--rimuru-light); 
+            border: 1px solid rgba(14, 165, 233, 0.15); 
+            transition: all 0.2s ease; 
+            flex-shrink: 0; 
+            white-space: nowrap;
+        }
+        .status-badge { pointer-events: none; opacity: 0.8; }
         .badge-btn { cursor: pointer; pointer-events: auto !important; }
-        .badge-btn:active { background: var(--rimuru-main); color: white; box-shadow: 0 0 15px var(--rimuru-glow); transform: scale(0.9); }
+        .badge-btn:hover { background: rgba(14, 165, 233, 0.2); border-color: var(--rimuru-light); color: #fff; }
+        .badge-btn:active { background: var(--rimuru-main); color: white; transform: scale(0.95); }
+
+        /* --- INFO PILLS (DIKUNCI: TETAP ADA & UKURANNYA PROPORSIONAL) --- */
+        .info-pills { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-top: 3px; }
+        .pill { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 10px; 
+            padding: 2px 7px; 
+            border-radius: 6px; 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            color: #64748b; 
+            white-space: nowrap; 
+        }
+        .pill-safe { background: rgba(34, 197, 94, 0.03); border-color: rgba(34, 197, 94, 0.1); color: #4ade80; }
+        .pill-apk { background: rgba(14, 165, 233, 0.03); border-color: rgba(14, 165, 233, 0.1); color: var(--rimuru-light); }
 
         /* --- LOGIKA SHOW/HIDE LAYER --- */
         .layer-folder, .layer-file, .layer-gms, .layer-kaeblox, .layer-kaeblox-file { display: none !important; }
@@ -154,45 +274,22 @@
         #control-kaeblox-file:checked ~ table .layer-kaeblox { display: none !important; }
         #control-kaeblox-file:checked ~ table .layer-kaeblox-file { display: table-row-group !important; }
 
-        .back-btn { color: var(--rimuru-light); font-size: 11px; cursor: pointer; display: block; padding: 15px 30px; font-family: 'JetBrains Mono', monospace; font-weight: bold; border-bottom: 1px solid rgba(255, 255, 255, 0.03); transition: 0.2s; background: rgba(255,255,255,0.01); }
-        .back-btn:active { background: rgba(14, 165, 233, 0.1); padding-left: 20px; }
+        .back-btn { color: #64748b; font-size: 13px; cursor: pointer; display: block; padding: 16px 24px; font-family: 'JetBrains Mono', monospace; font-weight: bold; border-bottom: 1px solid rgba(255, 255, 255, 0.02); transition: 0.2s; background: rgba(255,255,255,0.01); }
+        .back-btn:hover { color: var(--rimuru-light); background: rgba(14, 165, 233, 0.05); }
+        .back-btn:active { padding-left: 18px; }
 
         /* --- FOOTER --- */
         footer { 
-            width: 100%; padding: 40px 0 30px 0; text-align: center; 
-            font-family: 'JetBrains Mono', monospace; font-size: 10px; 
-            color: var(--rimuru-light); letter-spacing: 6px; 
+            width: 100%; padding: 40px 0 25px 0; text-align: center; 
+            font-family: 'JetBrains Mono', monospace; font-size: 11px; 
+            color: #475569; letter-spacing: 4px; 
             text-transform: uppercase; opacity: 0.8; position: relative; z-index: 10;
             display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-
-        /* --- IKON ROBLOX (KOTAK MIRING) --- */
-        .roblox-logo { 
-            width: 24px; height: 24px; background: var(--rimuru-light); 
-            transform: rotate(-15deg); border-radius: 4px; position: relative; 
-        }
-        .roblox-logo::after { content: ''; position: absolute; top: 25%; left: 25%; width: 50%; height: 50%; background: #0f172a; border-radius: 2px; }
-        .svg-icon-blue { width: 28px; height: 28px; fill: var(--rimuru-light); transform: rotate(-10deg); }
-
-        /* ======================================================= */
-        /* --- KUSTOMISASI ANIMASI CAHAYA (AMAN TANPA MERUBAH IKON) --- */
-        /* ======================================================= */
-
-        /* Glow berkala untuk ikon Roblox & SVG Premium App */
-        .roblox-logo, .svg-icon-blue {
-            animation: glowPulseAll 3s ease-in-out infinite;
-        }
-
-        @keyframes glowPulseAll {
-            0%, 100% { 
-                filter: drop-shadow(0 0 2px var(--rimuru-glow)); 
-                opacity: 0.9; 
-            }
-            50% { 
-                filter: drop-shadow(0 0 10px var(--rimuru-light)); 
-                opacity: 1; 
-            }
-        }
+        
+        .roblox-logo { width: 20px; height: 20px; background: var(--rimuru-light); transform: rotate(-15deg); border-radius: 4px; position: relative; flex-shrink: 0; }
+        .roblox-logo::after { content: ''; position: absolute; top: 25%; left: 25%; width: 50%; height: 50%; background: #0f172a; border-radius: 1.5px; }
+        .svg-icon-blue { width: 25px; height: 25px; fill: var(--rimuru-light); filter: drop-shadow(0 0 6px var(--rimuru-glow)); transform: rotate(-10deg); }
     </style>
 </head>
 <body>
@@ -212,6 +309,16 @@
             <div class="slime-unit happy"><div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div></div>
         </div>
         
+        <div class="search-container">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search file name here...">
+                <svg class="search-icon" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5A4.5,4.5 0 0,0 5,9.5A4.5,4.5 0 0,0 9.5,14A4.5,4.5 0 0,0 14,9.5A4.5,4.5 0 0,0 9.5,5Z"/></svg>
+            </div>
+            <button class="search-btn" onclick="executeSearch()" title="Search">
+                <svg class="play-icon" viewBox="0 0 24 24"><path d="M8,5.14V19.14L19,12.14L8,5.14Z"/></svg>
+            </button>
+        </div>
+
         <div class="table-container">
             <input type="checkbox" id="control-apps" style="display: none;">
             <input type="checkbox" id="control-kaeblox" style="display: none;">
@@ -222,40 +329,40 @@
             <table>
                 <thead><tr><th colspan="2">LISTED APP</th></tr></thead>
 
-                <tbody class="layer-root">
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaeblox" class="nav-label"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Roblox Lite For Android 11-17 </span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Xiblox</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Roblox Lite For Android 10</span></div></div><span class="badge status-badge">STABLE</span></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-apps" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7L13.57,10.57L17.14,12.14L13.57,13.71L12,17.29L10.43,13.71L6.86,12.14L10.43,10.57L12,7Z"/></svg></div><div><strong>Premium App</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">( By KaeruShi )</span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
+                <tbody class="layer-root" id="group-layer-root">
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaeblox" class="nav-label"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox</strong><span>Roblox Lite For Android 11-17 </span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Xiblox</strong><span>Roblox Lite For Android 10</span></div></div><span class="badge status-badge">STABLE</span></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-apps" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7L13.57,10.57L17.14,12.14L13.57,13.71L12,17.29L10.43,13.71L6.86,12.14L10.43,10.57L12,7Z"/></svg></div><div class="text-wrap"><strong>Premium App</strong><span>( By KaeruShi )</span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
                 </tbody>
 
-                <tbody class="layer-folder">
-                    <tr><td colspan="2"><label for="control-apps" class="back-btn">⇠ Back </label></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaetube" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div><strong>YouTube Premium</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">( By KaeruShi )</span></div></label><label for="control-kaetube" class="badge badge-btn">OPEN</label></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-gms" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div><strong>Optional Tools YT</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Additional Support Files</span></div></label><label for="control-gms" class="badge badge-btn">OPEN</label></div></td></tr>
+                <tbody class="layer-folder" id="group-layer-folder">
+                    <tr><td colspan="2"><div class="back-btn">⇠ Back </div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaetube" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div class="text-wrap"><strong>YouTube Premium</strong><span>( By KaeruShi )</span></div></label><label for="control-kaetube" class="badge badge-btn">OPEN</label></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-gms" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div class="text-wrap"><strong>Optional Tools YT</strong><span>Additional Support Files</span></div></label><label for="control-gms" class="badge badge-btn">OPEN</label></div></td></tr>
                 </tbody>
 
-                <tbody class="layer-file">
-                    <tr><td colspan="2"><label for="control-kaetube" class="back-btn">⇠ Back</label></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.215-11.626-.215-15.23 0-3.897.233-4.382 2.307-4.385 8.816.003 6.51.488 8.583 4.385 8.816 3.604.215 11.626.215 15.23 0 3.897-.233 4.382-2.307 4.385-8.816-.003-6.51-.488-8.583-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z"/></svg></div><div><strong>KaeTube.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 78MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/KaeTube.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                <tbody class="layer-file" id="group-layer-file">
+                    <tr><td colspan="2"><div class="back-btn">⇠ Back</div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.215-11.626-.215-15.23 0-3.897.233-4.382 2.307-4.385 8.816.003 6.51.488 8.583 4.385 8.816 3.604.215 11.626.215 15.23 0 3.897-.233 4.382-2.307 4.385-8.816-.003-6.51-.488-8.583-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z"/></svg></div><div class="text-wrap"><strong>KaeTube.apk</strong><div class="info-pills"><span class="pill">78MB</span><span class="pill pill-safe">✓ SAFE</span><span class="pill pill-apk">APK</span></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/KaeTube.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
                 </tbody>
 
-                <tbody class="layer-gms">
-                    <tr><td colspan="2"><label for="control-gms" class="back-btn">⇠ Back </label></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C11.79,2 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5Z"/></svg></div><div><strong>GMS_Core.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 37.9MB </span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/GMS_Core.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                <tbody class="layer-gms" id="group-layer-gms">
+                    <tr><td colspan="2"><div class="back-btn">⇠ Back </div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C11.79,2 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5Z"/></svg></div><div class="text-wrap"><strong>GMS_Core.apk</strong><div class="info-pills"><span class="pill">37.9MB</span><span class="pill pill-safe">✓ SAFE</span><span class="pill pill-apk">APK</span></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/GMS_Core.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
                 </tbody>
 
-                <tbody class="layer-kaeblox">
-                    <tr><td colspan="2"><label for="control-kaeblox" class="back-btn">⇠ Back </label></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaeblox-file" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div><strong>Kaeblox V2.713.911</strong></div></label><label for="control-kaeblox-file" class="badge badge-btn">OPEN</label></div></td></tr>
+                <tbody class="layer-kaeblox" id="group-layer-kaeblox">
+                    <tr><td colspan="2"><div class="back-btn">⇠ Back </div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaeblox-file" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div class="text-wrap"><strong>Kaeblox V2.713.911</strong><span>(View versions)</span></div></label><label for="control-kaeblox-file" class="badge badge-btn">OPEN</label></div></td></tr>
                 </tbody>
 
-                <tbody class="layer-kaeblox-file">
-                    <tr><td colspan="2"><label for="control-kaeblox-file" class="back-btn">⇠ Back </label></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_1.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 94.3MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_1.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_2.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 94.3MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_2.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_3.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 94.3MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_3.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_4.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 94.3MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_4.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_5.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 94.3MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_5.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                <tbody class="layer-kaeblox-file" id="group-layer-kaeblox-file">
+                    <tr><td colspan="2"><div class="back-btn">⇠ Back </div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_1.apk</strong><div class="info-pills"><span class="pill">94.3MB</span><span class="pill pill-safe">✓ SAFE</span><span class="pill pill-apk">APK</span></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_1.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_2.apk</strong><div class="info-pills"><span class="pill">94.3MB</span><span class="pill pill-safe">✓ SAFE</span><span class="pill pill-apk">APK</span></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_2.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_3.apk</strong><div class="info-pills"><span class="pill">94.3MB</span><span class="pill pill-safe">✓ SAFE</span><span class="pill pill-apk">APK</span></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_3.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_4.apk</strong><div class="info-pills"><span class="pill">94.3MB</span><span class="pill pill-safe">✓ SAFE</span><span class="pill pill-apk">APK</span></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_4.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_5.apk</strong><div class="info-pills"><span class="pill">94.3MB</span><span class="pill pill-safe">✓ SAFE</span><span class="pill pill-apk">APK</span></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_5.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
                 </tbody>
 
             </table>
@@ -268,34 +375,149 @@
 
     <script>
         const inputs = document.querySelectorAll('input[type="checkbox"]');
-        let ignoreHashChange = false;
+
+        /* --- LOGIKA HISTORY BACK GESTUR --- */
+        function stepBackLinear() {
+            if (document.getElementById('control-kaeblox-file').checked) {
+                document.getElementById('control-kaeblox-file').checked = false; 
+                return "control-kaeblox"; 
+            }
+            else if (document.getElementById('control-kaetube').checked) {
+                document.getElementById('control-kaetube').checked = false;
+                return "control-apps";
+            }
+            else if (document.getElementById('control-gms').checked) {
+                document.getElementById('control-gms').checked = false;
+                return "control-apps";
+            }
+            else if (document.getElementById('control-kaeblox').checked) {
+                document.getElementById('control-kaeblox').checked = false;
+                return "";
+            }
+            else if (document.getElementById('control-apps').checked) {
+                document.getElementById('control-apps').checked = false;
+                return "";
+            }
+            return "";
+        }
 
         inputs.forEach(input => {
             input.addEventListener('change', () => {
-                if (ignoreHashChange) return;
-
-                let activeIds = [];
-                inputs.forEach(i => { if(i.checked) activeIds.push(i.id); });
-                
-                ignoreHashChange = true;
-                window.history.pushState({ids: activeIds}, '', window.location.pathname);
-                
-                setTimeout(() => ignoreHashChange = false, 50);
+                if (input.checked) {
+                    history.pushState({ folderId: input.id }, '', `#${input.id}`);
+                }
             });
         });
 
-        window.addEventListener('popstate', (e) => {
-            if (ignoreHashChange) return;
-
-            ignoreHashChange = true;
-            const activeIds = (e.state && e.state.ids) ? e.state.ids : [];
-            inputs.forEach(input => { input.checked = activeIds.includes(input.id); });
+        function handlePopAction() {
+            const currentHash = window.location.hash.replace('#', '');
             
-            setTimeout(() => ignoreHashChange = false, 50);
+            if (!currentHash) {
+                inputs.forEach(i => i.checked = false);
+                return; 
+            }
+
+            const nextHash = stepBackLinear();
+            
+            if (nextHash) {
+                history.replaceState({ folderId: nextHash }, '', `#${nextHash}`);
+            } else {
+                history.replaceState(null, '', ' ');
+            }
+        }
+
+        window.addEventListener('popstate', handlePopAction);
+
+        document.querySelectorAll('.back-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) searchInput.value = "";
+                const rows = document.querySelectorAll('.row-base');
+                rows.forEach(row => row.style.display = "");
+                const oldNoResult = document.getElementById('no-result-row');
+                if (oldNoResult) oldNoResult.remove();
+
+                window.history.back();
+            });
         });
 
-        window.history.replaceState({ids: []}, '', window.location.pathname);
-    </script>
+        /* --- LOGIKA PENCARIAN FILE --- */
+        function executeSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const filter = searchInput.value.toLowerCase().trim();
+            const rows = document.querySelectorAll('.row-base');
+            const tbodyRoot = document.getElementById('group-layer-root');
 
+            const oldNoResult = document.getElementById('no-result-row');
+            if (oldNoResult) oldNoResult.remove();
+
+            if (filter === "") {
+                inputs.forEach(input => input.checked = false);
+                rows.forEach(row => row.style.display = "");
+                history.replaceState(null, '', ' ');
+                return;
+            }
+
+            let foundInGroups = new Set(); 
+            let totalFound = 0;
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                if (text.includes(filter)) {
+                    row.style.display = ""; 
+                    totalFound++;
+                    
+                    const parentTbody = row.closest('tbody');
+                    if(parentTbody) {
+                        foundInGroups.add(parentTbody.id);
+                    }
+                } else {
+                    row.style.display = "none"; 
+                }
+            });
+
+            if (totalFound === 0) {
+                inputs.forEach(input => input.checked = false); 
+                const noResult = document.createElement('tr');
+                noResult.id = "no-result-row";
+                noResult.innerHTML = `<td colspan="2" style="text-align:center; padding: 20px; color: #64748b; font-family:'JetBrains Mono',monospace; font-size:12px;">❌ File Not Found!</td>`;
+                tbodyRoot.appendChild(noResult);
+                history.replaceState(null, '', ' ');
+                return;
+            }
+
+            inputs.forEach(input => input.checked = false);
+
+            if (foundInGroups.has('group-layer-file')) {
+                document.getElementById('control-apps').checked = true;
+                document.getElementById('control-kaetube').checked = true;
+                history.pushState({ folderId: "control-kaetube" }, '', `#control-kaetube`);
+            } 
+            else if (foundInGroups.has('group-layer-gms')) {
+                document.getElementById('control-apps').checked = true;
+                document.getElementById('control-gms').checked = true;
+                history.pushState({ folderId: "control-gms" }, '', `#control-gms`);
+            } 
+            else if (foundInGroups.has('group-layer-folder')) {
+                document.getElementById('control-apps').checked = true;
+                history.pushState({ folderId: "control-apps" }, '', `#control-apps`);
+            } 
+            else if (foundInGroups.has('group-layer-kaeblox-file')) {
+                document.getElementById('control-kaeblox').checked = true;
+                document.getElementById('control-kaeblox-file').checked = true;
+                history.pushState({ folderId: "control-kaeblox-file" }, '', `#control-kaeblox-file`);
+            }
+            else if (foundInGroups.has('group-layer-kaeblox')) {
+                document.getElementById('control-kaeblox').checked = true;
+                history.pushState({ folderId: "control-kaeblox" }, '', `#control-kaeblox`);
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                executeSearch();
+            }
+        });
+    </script>
 </body>
 </html>
