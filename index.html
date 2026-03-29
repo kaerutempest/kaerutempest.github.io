@@ -404,7 +404,7 @@
         
         <div class="search-container">
             <div class="search-wrapper">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search name here...">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search file name here...">
                 <svg class="search-icon" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5A4.5,4.5 0 0,0 5,9.5A4.5,4.5 0 0,0 9.5,14A4.5,4.5 0 0,0 14,9.5A4.5,4.5 0 0,0 9.5,5Z"/></svg>
             </div>
             <button class="search-btn" onclick="executeSearch()" title="Search">
@@ -494,28 +494,33 @@
             return "";
         }
 
+        // Simpan state murni di history tanpa mengubah URL Hash (#)
         inputs.forEach(input => {
             input.addEventListener('change', () => {
                 if (input.checked) {
-                    history.pushState({ folderId: input.id }, '', `#${input.id}`);
+                    history.pushState({ folderId: input.id }, '', '');
                 }
             });
         });
 
-        function handlePopAction() {
-            const currentHash = window.location.hash.replace('#', '');
-            
-            if (!currentHash) {
-                inputs.forEach(i => i.checked = false);
+        function handlePopAction(event) {
+            // Periksa state foldernya, jika kosong (berada di halaman utama) -> lakukan reload/kembali
+            if (!event.state || !event.state.folderId) {
+                const checkedInputs = document.querySelectorAll('input[type="checkbox"]:checked');
+                if (checkedInputs.length > 0) {
+                    inputs.forEach(i => i.checked = false);
+                } else {
+                    // Jika di halaman utama dan pencet back, browser mundur ke history sebelumnya
+                    history.go(-1);
+                }
                 return; 
             }
 
             const nextHash = stepBackLinear();
-            
             if (nextHash) {
-                history.replaceState({ folderId: nextHash }, '', '#' + nextHash);
+                history.replaceState({ folderId: nextHash }, '', '');
             } else {
-                history.replaceState(null, '', ' ');
+                history.replaceState(null, '', '');
             }
         }
 
@@ -547,7 +552,6 @@
             if (filter === "") {
                 inputs.forEach(input => input.checked = false);
                 rows.forEach(row => row.style.display = "");
-                history.replaceState(null, '', ' ');
                 return;
             }
 
@@ -575,7 +579,6 @@
                 noResult.id = "no-result-row";
                 noResult.innerHTML = `<td style="text-align:center; padding: 20px; color: #64748b; font-family:'JetBrains Mono',monospace; font-size:12px;">❌ File Not Found!</td>`;
                 tbodyRoot.appendChild(noResult);
-                history.replaceState(null, '', ' ');
                 return;
             }
 
@@ -584,25 +587,25 @@
             if (foundInGroups.has('group-layer-file')) {
                 document.getElementById('control-apps').checked = true;
                 document.getElementById('control-kaetube').checked = true;
-                history.pushState({ folderId: "control-kaetube" }, '', `#control-kaetube`);
+                history.pushState({ folderId: "control-kaetube" }, '', '');
             } 
             else if (foundInGroups.has('group-layer-gms')) {
                 document.getElementById('control-apps').checked = true;
                 document.getElementById('control-gms').checked = true;
-                history.pushState({ folderId: "control-gms" }, '', `#control-gms`);
+                history.pushState({ folderId: "control-gms" }, '', '');
             } 
             else if (foundInGroups.has('group-layer-folder')) {
                 document.getElementById('control-apps').checked = true;
-                history.pushState({ folderId: "control-apps" }, '', `#control-apps`);
+                history.pushState({ folderId: "control-apps" }, '', '');
             } 
             else if (foundInGroups.has('group-layer-kaeblox-file')) {
                 document.getElementById('control-kaeblox').checked = true;
                 document.getElementById('control-kaeblox-file').checked = true;
-                history.pushState({ folderId: "control-kaeblox-file" }, '', `#control-kaeblox-file`);
+                history.pushState({ folderId: "control-kaeblox-file" }, '', '');
             }
             else if (foundInGroups.has('group-layer-kaeblox')) {
                 document.getElementById('control-kaeblox').checked = true;
-                history.pushState({ folderId: "control-kaeblox" }, '', `#control-kaeblox`);
+                history.pushState({ folderId: "control-kaeblox" }, '', '');
             }
         }
 
