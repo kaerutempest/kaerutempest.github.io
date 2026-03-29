@@ -40,13 +40,19 @@
         .wrapper { width: 100%; max-width: 800px; padding: 60px 20px 40px 20px; flex: 1; z-index: 10; box-sizing: border-box; position: relative; }
         header { margin-bottom: 40px; text-align: center; width: 100%; }
         
+        .header-title-wrap {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            margin: 0 auto; display: table; position: relative;
+        }
+
         .animated-title {
-            font-family: 'Syne', sans-serif; font-size: 1.8rem; margin: 0 auto; display: table;
+            font-family: 'Syne', sans-serif; font-size: 1.8rem; margin: 0;
             background: linear-gradient(90deg, #ffffff 0%, var(--rimuru-light) 25%, var(--rimuru-main) 50%, var(--rimuru-light) 75%, #ffffff 100%);
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-weight: 800; position: relative;
             animation: colorFlow 2s linear infinite, liquidFloat 3s ease-in-out infinite;
             filter: drop-shadow(0 0 10px var(--rimuru-glow));
+            display: inline-flex; align-items: center; gap: 10px;
         }
         .animated-title::after {
             content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px;
@@ -59,10 +65,10 @@
 
         .subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rimuru-light); letter-spacing: 4px; margin-top: 20px; opacity: 0.9; }
 
-        /* --- [PRO FIX] PASUKAN SLIME DI ATAS TABEL --- */
+        /* --- PASUKAN SLIME --- */
         .slime-footer-wrap {
             display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 30px;
-            position: relative; margin: 0 auto -1px auto; /* Margin minus nempel ke border border tabel */
+            position: relative; margin: 0 auto -1px auto;
             height: 60px; z-index: 20; pointer-events: none; width: 100%;
         }
         .slime-unit { display: flex; flex-direction: column; align-items: center; position: relative; }
@@ -71,6 +77,7 @@
             position: relative; box-shadow: inset 0 -4px 10px rgba(255,255,255,0.3); transform-origin: bottom center;
         }
         .slime-character::before { content: ''; position: absolute; top: 12%; left: 22%; width: 12px; height: 7px; background: rgba(255, 255, 255, 0.4); border-radius: 50%; filter: blur(1px); }
+        
         .mata { position: absolute; top: 42%; width: 10px; height: 4px; border-bottom: 2.5px solid #1e293b; border-radius: 0 0 50% 50%; }
         .mata.kiri { left: 25%; transform: rotate(-8deg); }
         .mata.kanan { right: 25%; transform: rotate(8deg); }
@@ -78,7 +85,6 @@
         .blush.kiri { left: 18%; }
         .blush.kanan { right: 18%; }
 
-        /* WARNA & ANIMASI MASING-MASING SLIME */
         .slime-unit.rimuru .slime-character { background: radial-gradient(circle at 35% 30%, #7dd3fc 0%, #0ea5e9 60%, #0369a1 100%); filter: drop-shadow(0 0 10px var(--rimuru-glow)); animation: rimuruWobbleDiam 4.5s ease-in-out infinite, rimuruJumpFisika 4.5s ease-in-out infinite; }
         .slime-unit.rimuru .mata, .slime-unit.rimuru .blush { animation: rimuruEyeLook 4.5s ease-in-out infinite; } .slime-unit.rimuru .blush { background: var(--blush-color); }
         
@@ -91,7 +97,6 @@
         .slime-unit.happy .slime-character { background: radial-gradient(circle at 35% 30%, #fde047 0%, #eab308 60%, #a16207 100%); filter: drop-shadow(0 0 10px rgba(234, 179, 8, 0.4)); animation: rimuruWobbleDiam 2.5s ease-in-out infinite, happyJump 2.5s ease-in-out infinite; }
         .slime-unit.happy .mata { width: 6px; height: 6px; background: #1e293b; border: none; border-radius: 50%; top: 40%; } .slime-unit.happy .blush { background: #f97316; }
 
-        /* KEYFRAMES ANIMASI SLIME */
         @keyframes rimuruJumpFisika { 0%, 100% { transform: translateY(0) scale(1, 1); } 15% { transform: translateY(0) scale(1.18, 0.8); } 35% { transform: translateY(-15px) scale(0.9, 1.15); } 50% { transform: translateY(0) scale(1.15, 0.85); } 65% { transform: translateY(0) scale(1, 1.05); } 80%, 90% { transform: translateY(0) scale(1, 1); } }
         @keyframes angryJump { 0%, 100% { transform: translateY(0) scale(1,1); } 10% { transform: translateY(0) scale(1.2, 0.8); } 20% { transform: translateY(-20px) scale(0.85, 1.2); } 28% { transform: translateY(0) scale(1.3, 0.7); } 40% { transform: translateY(0) scale(1, 1); } }
         @keyframes happyJump { 0%, 100% { transform: translateY(0); } 20% { transform: translateY(-10px) scale(0.95, 1.1); } 40% { transform: translateY(0) scale(1.1, 0.9); } 60% { transform: translateY(-5px) scale(0.98, 1.05); } 80% { transform: translateY(0) scale(1.05, 0.95); } }
@@ -126,25 +131,30 @@
         .badge-btn { cursor: pointer; pointer-events: auto !important; }
         .badge-btn:active { background: var(--rimuru-main); color: white; box-shadow: 0 0 15px var(--rimuru-glow); transform: scale(0.9); }
 
-        /* --- LOGIKA SHOW/HIDE LAYER --- */
+        /* --- LOGIKA SHOW/HIDE LAYER (FIX TOTAL ANTI-NUMPUK) --- */
         .layer-folder, .layer-file, .layer-gms, .layer-kaeblox, .layer-kaeblox-file { display: none !important; }
         .layer-root { display: table-row-group; }
 
+        /* Ketika Apps Dibuka */
         #control-apps:checked ~ table .layer-root { display: none !important; }
         #control-apps:checked ~ table .layer-folder { display: table-row-group !important; }
 
+        /* Ketika YouTube Dibuka (Folder Apps Harus Sembunyi) */
         #control-kaetube:checked ~ table .layer-root { display: none !important; }
         #control-kaetube:checked ~ table .layer-folder { display: none !important; }
         #control-kaetube:checked ~ table .layer-file { display: table-row-group !important; }
 
+        /* Ketika GMS Dibuka (File YouTube & Folder Apps Harus Sembunyi) */
         #control-gms:checked ~ table .layer-root { display: none !important; }
         #control-gms:checked ~ table .layer-folder { display: none !important; }
         #control-gms:checked ~ table .layer-file { display: none !important; }
         #control-gms:checked ~ table .layer-gms { display: table-row-group !important; }
 
+        /* Ketika Folder Kaeblox Dibuka */
         #control-kaeblox:checked ~ table .layer-root { display: none !important; }
         #control-kaeblox:checked ~ table .layer-kaeblox { display: table-row-group !important; }
 
+        /* Ketika File Kaeblox Dibuka */
         #control-kaeblox-file:checked ~ table .layer-root { display: none !important; }
         #control-kaeblox-file:checked ~ table .layer-kaeblox { display: none !important; }
         #control-kaeblox-file:checked ~ table .layer-kaeblox-file { display: table-row-group !important; }
@@ -153,7 +163,13 @@
         .back-btn:active { background: rgba(14, 165, 233, 0.1); padding-left: 20px; }
 
         /* --- FOOTER --- */
-        footer { width: 100%; padding: 40px 0 30px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--rimuru-light); letter-spacing: 6px; text-transform: uppercase; opacity: 0.8; position: relative; z-index: 10; }
+        footer { 
+            width: 100%; padding: 40px 0 30px 0; text-align: center; 
+            font-family: 'JetBrains Mono', monospace; font-size: 10px; 
+            color: var(--rimuru-light); letter-spacing: 6px; 
+            text-transform: uppercase; opacity: 0.8; position: relative; z-index: 10;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
         
         .roblox-logo { width: 24px; height: 24px; background: var(--rimuru-light); transform: rotate(-15deg); border-radius: 4px; position: relative; }
         .roblox-logo::after { content: ''; position: absolute; top: 25%; left: 25%; width: 50%; height: 50%; background: #0f172a; border-radius: 2px; }
@@ -164,23 +180,17 @@
 
     <div class="wrapper">
         <header>
-            <div class="animated-title">KaeruShi Tempest</div>
+            <div class="header-title-wrap">
+                <div class="animated-title"><span>🌀</span> KaeruShi Tempest <span>🌀</span></div>
+            </div>
             <div class="subtitle">" 悪質なスライムじゃないよ "</div>
         </header>
 
         <div class="slime-footer-wrap">
-            <div class="slime-unit angry">
-                <div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div>
-            </div>
-            <div class="slime-unit rimuru">
-                <div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div>
-            </div>
-            <div class="slime-unit sleepy">
-                <div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div>
-            </div>
-            <div class="slime-unit happy">
-                <div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div>
-            </div>
+            <div class="slime-unit angry"><div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div></div>
+            <div class="slime-unit rimuru"><div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div></div>
+            <div class="slime-unit sleepy"><div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div></div>
+            <div class="slime-unit happy"><div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div></div>
         </div>
         
         <div class="table-container">
@@ -194,7 +204,7 @@
                 <thead><tr><th colspan="2">LISTED APP</th></tr></thead>
 
                 <tbody class="layer-root">
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaeblox" class="nav-label"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Roblox Lite For Android 11-17</span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaeblox" class="nav-label"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Roblox Lite For Android 11-17 </span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
                     <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Xiblox</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Roblox Lite For Android 10</span></div></div><span class="badge status-badge">STABLE</span></div></td></tr>
                     <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-apps" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7L13.57,10.57L17.14,12.14L13.57,13.71L12,17.29L10.43,13.71L6.86,12.14L10.43,10.57L12,7Z"/></svg></div><div><strong>Premium App</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">( By KaeruShi )</span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
                 </tbody>
@@ -202,12 +212,12 @@
                 <tbody class="layer-folder">
                     <tr><td colspan="2"><label for="control-apps" class="back-btn">⇠ Back </label></td></tr>
                     <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaetube" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div><strong>YouTube Premium</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">( By KaeruShi )</span></div></label><label for="control-kaetube" class="badge badge-btn">OPEN</label></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-gms" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div><strong>Optional Tools YT</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Additional Support Files</span></div></label><label for="control-gms" class="badge badge-btn">OPEN</label></div></td></tr>
                 </tbody>
 
                 <tbody class="layer-file">
                     <tr><td colspan="2"><label for="control-kaetube" class="back-btn">⇠ Back</label></td></tr>
                     <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.215-11.626-.215-15.23 0-3.897.233-4.382 2.307-4.385 8.816.003 6.51.488 8.583 4.385 8.816 3.604.215 11.626.215 15.23 0 3.897-.233 4.382-2.307 4.385-8.816-.003-6.51-.488-8.583-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z"/></svg></div><div><strong>KaeTube.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 78MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/KaeTube.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-gms" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div><strong>Optional Tools YT</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Additional Support Files</span></div></label><label for="control-gms" class="badge badge-btn">OPEN</label></div></td></tr>
                 </tbody>
 
                 <tbody class="layer-gms">
@@ -230,8 +240,11 @@
                 </tbody>
 
             </table>
-        </div> </div> <footer>
-        KAERUSHI TEMPEST 2026
+        </div>
+    </div> 
+
+    <footer>
+        🌀 KAERUSHI TEMPEST INC 🌀
     </footer>
 
     <script>
@@ -241,25 +254,28 @@
         inputs.forEach(input => {
             input.addEventListener('change', () => {
                 if (ignoreHashChange) return;
+
                 let activeIds = [];
                 inputs.forEach(i => { if(i.checked) activeIds.push(i.id); });
-                let hash = activeIds.length > 0 ? '#' + activeIds.join(',') : '#root';
                 
                 ignoreHashChange = true;
-                window.history.pushState({ids: activeIds}, '', hash);
+                window.history.pushState({ids: activeIds}, '', window.location.pathname);
+                
                 setTimeout(() => ignoreHashChange = false, 50);
             });
         });
 
         window.addEventListener('popstate', (e) => {
             if (ignoreHashChange) return;
+
             ignoreHashChange = true;
             const activeIds = (e.state && e.state.ids) ? e.state.ids : [];
             inputs.forEach(input => { input.checked = activeIds.includes(input.id); });
+            
             setTimeout(() => ignoreHashChange = false, 50);
         });
 
-        window.history.replaceState({ids: []}, '', '#root');
+        window.history.replaceState({ids: []}, '', window.location.pathname);
     </script>
 
 </body>
