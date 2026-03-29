@@ -7,158 +7,157 @@
     <title>KaeruShi Tempest // Cloud Archive</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono&family=Syne:wght@800&display=swap" rel="stylesheet">
     <style>
-        /* INI FITUR SMOOTH SCROLL NYA PAK */
-        html {
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; /* Biar licin di HP */
-        }
-
+        /* --- CONFIGURASI DASAR --- */
+        html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
         :root {
             --rimuru-light: #7dd3fc !important;
             --rimuru-main: #0ea5e9 !important;
             --rimuru-glow: rgba(14, 165, 233, 0.4) !important;
             --bg-deep: #020617 !important;
             --glass: rgba(15, 23, 42, 0.95) !important;
-            --border: rgba(14, 165, 233, 0.2) !important;
+            --border: rgba(14, 165, 233, 0.25) !important;
+            --blush-color: rgba(244, 114, 182, 0.8) !important;
         }
-
         body {
             background-color: var(--bg-deep); margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh; color: #f1f5f9;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-image: radial-gradient(circle at 50% -20%, #0c4a6e 0%, #020617 80%);
-            background-attachment: fixed;
-            overflow-x: hidden; /* Mencegah patah-patah saat scroll */
+            overflow-x: hidden; position: relative;
         }
 
-        .wrapper { width: 100%; max-width: 800px; padding: 60px 20px 20px 20px; flex: 1; z-index: 10; box-sizing: border-box; }
+        /* --- AURA BACKGROUND --- */
+        body::before {
+            content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            pointer-events: none; z-index: 1;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(125, 211, 252, 0.12) 0%, rgba(0,0,0,0) 45%),
+                radial-gradient(circle at 85% 85%, rgba(14, 165, 233, 0.12) 0%, rgba(0,0,0,0) 45%);
+            animation: rimuruSoftAura 12s ease-in-out infinite; filter: blur(8px);
+        }
+        @keyframes rimuruSoftAura { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.03); } }
 
-        header { margin-bottom: 50px; text-align: center; width: 100%; }
+        /* --- WRAPPER & HEADER --- */
+        .wrapper { width: 100%; max-width: 800px; padding: 60px 20px 40px 20px; flex: 1; z-index: 10; box-sizing: border-box; position: relative; }
+        header { margin-bottom: 40px; text-align: center; width: 100%; }
         
         .animated-title {
-            font-family: 'Syne', sans-serif; font-size: 1.8rem; margin: 0 auto;
-            display: table;
-            background: linear-gradient(90deg, #ffffff 0%, var(--rimuru-light) 30%, var(--rimuru-main) 70%, #ffffff 100%);
+            font-family: 'Syne', sans-serif; font-size: 1.8rem; margin: 0 auto; display: table;
+            background: linear-gradient(90deg, #ffffff 0%, var(--rimuru-light) 25%, var(--rimuru-main) 50%, var(--rimuru-light) 75%, #ffffff 100%);
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-weight: 800; position: relative;
-            animation: colorFlow 1.5s linear infinite, liquidFloat 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 8px var(--rimuru-glow));
+            animation: colorFlow 2s linear infinite, liquidFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px var(--rimuru-glow));
         }
-
         .animated-title::after {
             content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px;
             background: var(--rimuru-light); box-shadow: 0 0 15px var(--rimuru-main);
             transform-origin: left; animation: loadingLine 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
-
         @keyframes colorFlow { to { background-position: 200% center; } }
         @keyframes liquidFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-        @keyframes loadingLine {
-            0% { transform: scaleX(0); opacity: 0.2; transform-origin: left; }
-            50% { transform: scaleX(1); opacity: 1; }
-            100% { transform: scaleX(0); opacity: 0.2; transform-origin: right; }
-        }
+        @keyframes loadingLine { 0% { transform: scaleX(0); opacity: 0.2; transform-origin: left; } 50% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: 0.2; transform-origin: right; } }
 
         .subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rimuru-light); letter-spacing: 4px; margin-top: 20px; opacity: 0.9; }
 
-        .table-container { background: var(--glass); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 40px 100px rgba(0,0,0,0.6); overflow: hidden; margin-bottom: 10px; }
+        /* --- [PRO FIX] PASUKAN SLIME DI ATAS TABEL --- */
+        .slime-footer-wrap {
+            display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 30px;
+            position: relative; margin: 0 auto -1px auto; /* Margin minus nempel ke border border tabel */
+            height: 60px; z-index: 20; pointer-events: none; width: 100%;
+        }
+        .slime-unit { display: flex; flex-direction: column; align-items: center; position: relative; }
+        .slime-character {
+            width: 50px; height: 35px; border-radius: 50% 50% 45% 45% / 65% 65% 35% 35%;
+            position: relative; box-shadow: inset 0 -4px 10px rgba(255,255,255,0.3); transform-origin: bottom center;
+        }
+        .slime-character::before { content: ''; position: absolute; top: 12%; left: 22%; width: 12px; height: 7px; background: rgba(255, 255, 255, 0.4); border-radius: 50%; filter: blur(1px); }
+        .mata { position: absolute; top: 42%; width: 10px; height: 4px; border-bottom: 2.5px solid #1e293b; border-radius: 0 0 50% 50%; }
+        .mata.kiri { left: 25%; transform: rotate(-8deg); }
+        .mata.kanan { right: 25%; transform: rotate(8deg); }
+        .blush { position: absolute; top: 52%; width: 7px; height: 4px; border-radius: 50%; filter: blur(1px); opacity: 0.6; }
+        .blush.kiri { left: 18%; }
+        .blush.kanan { right: 18%; }
+
+        /* WARNA & ANIMASI MASING-MASING SLIME */
+        .slime-unit.rimuru .slime-character { background: radial-gradient(circle at 35% 30%, #7dd3fc 0%, #0ea5e9 60%, #0369a1 100%); filter: drop-shadow(0 0 10px var(--rimuru-glow)); animation: rimuruWobbleDiam 4.5s ease-in-out infinite, rimuruJumpFisika 4.5s ease-in-out infinite; }
+        .slime-unit.rimuru .mata, .slime-unit.rimuru .blush { animation: rimuruEyeLook 4.5s ease-in-out infinite; } .slime-unit.rimuru .blush { background: var(--blush-color); }
+        
+        .slime-unit.angry .slime-character { background: radial-gradient(circle at 35% 30%, #fca5a5 0%, #ef4444 60%, #b91c1c 100%); filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.4)); animation: rimuruWobbleDiam 3.2s ease-in-out infinite, angryJump 3.2s ease-in-out infinite; }
+        .slime-unit.angry .mata { border-bottom: none; border-top: 3px solid #1e293b; border-radius: 50% 50% 0 0; top: 38%; } .slime-unit.angry .blush { background: #f43f5e; }
+
+        .slime-unit.sleepy .slime-character { background: radial-gradient(circle at 35% 30%, #86efac 0%, #22c55e 60%, #15803d 100%); filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.4)); animation: sleepyWobble 6s ease-in-out infinite; }
+        .slime-unit.sleepy .mata { border-bottom: none; border-top: 2.5px solid #1e293b; border-radius: 0; height: 1px; top: 45%; } .slime-unit.sleepy .blush { background: #10b981; }
+
+        .slime-unit.happy .slime-character { background: radial-gradient(circle at 35% 30%, #fde047 0%, #eab308 60%, #a16207 100%); filter: drop-shadow(0 0 10px rgba(234, 179, 8, 0.4)); animation: rimuruWobbleDiam 2.5s ease-in-out infinite, happyJump 2.5s ease-in-out infinite; }
+        .slime-unit.happy .mata { width: 6px; height: 6px; background: #1e293b; border: none; border-radius: 50%; top: 40%; } .slime-unit.happy .blush { background: #f97316; }
+
+        /* KEYFRAMES ANIMASI SLIME */
+        @keyframes rimuruJumpFisika { 0%, 100% { transform: translateY(0) scale(1, 1); } 15% { transform: translateY(0) scale(1.18, 0.8); } 35% { transform: translateY(-15px) scale(0.9, 1.15); } 50% { transform: translateY(0) scale(1.15, 0.85); } 65% { transform: translateY(0) scale(1, 1.05); } 80%, 90% { transform: translateY(0) scale(1, 1); } }
+        @keyframes angryJump { 0%, 100% { transform: translateY(0) scale(1,1); } 10% { transform: translateY(0) scale(1.2, 0.8); } 20% { transform: translateY(-20px) scale(0.85, 1.2); } 28% { transform: translateY(0) scale(1.3, 0.7); } 40% { transform: translateY(0) scale(1, 1); } }
+        @keyframes happyJump { 0%, 100% { transform: translateY(0); } 20% { transform: translateY(-10px) scale(0.95, 1.1); } 40% { transform: translateY(0) scale(1.1, 0.9); } 60% { transform: translateY(-5px) scale(0.98, 1.05); } 80% { transform: translateY(0) scale(1.05, 0.95); } }
+        @keyframes sleepyWobble { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.08, 0.92); } }
+        @keyframes rimuruWobbleDiam { 0%, 65%, 100% { border-radius: 50% 50% 45% 45% / 65% 65% 35% 35%; } 75% { border-radius: 55% 45% 50% 50% / 65% 60% 40% 35%; } 85% { border-radius: 45% 55% 50% 50% / 60% 65% 35% 40%; } }
+        @keyframes rimuruEyeLook { 0%, 65%, 100% { transform: translateX(0); } 75% { transform: translateX(-1.5px); } 85% { transform: translateX(1.5px); } }
+
+        /* --- SISTEM TABEL --- */
+        .table-container { 
+            background: var(--glass); border-radius: 24px; border: 1px solid var(--border); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(14, 165, 233, 0.1); 
+            overflow: hidden; position: relative; z-index: 15;
+        }
         table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 22px 30px; background: rgba(14, 165, 233, 0.05); font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 3px; }
+        th { text-align: left; padding: 22px 30px; background: rgba(14, 165, 233, 0.08); font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid var(--border); }
         
         .row-base { border-bottom: 1px solid rgba(255, 255, 255, 0.03); transition: all 0.2s ease; }
         .row-base:has(label:active) { transform: scale(0.985); background: rgba(14, 165, 233, 0.1); }
 
         .cell-content { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; }
-        
         .nav-label { display: flex; align-items: center; gap: 20px; color: #fff; transition: 0.3s; cursor: pointer; flex-grow: 1; }
         .nav-label:hover { color: var(--rimuru-light); }
 
         .icon-square { 
-            min-width: 52px; width: 52px; height: 52px;
-            background: #0b1120; border: 1.5px solid var(--border); border-radius: 16px; 
-            display: flex; align-items: center; justify-content: center; transition: 0.3s;
+            min-width: 52px; width: 52px; height: 52px; background: #0f172a; border: 1.5px solid var(--border); 
+            border-radius: 16px; display: flex; align-items: center; justify-content: center; transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .badge { 
-            font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 6px 12px; 
-            border-radius: 8px; background: rgba(14, 165, 233, 0.1); color: var(--rimuru-light); 
-            border: 1px solid var(--border); transition: all 0.2s ease;
-        }
-
+        .badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 6px 12px; border-radius: 8px; background: rgba(14, 165, 233, 0.1); color: var(--rimuru-light); border: 1px solid var(--border); transition: all 0.2s ease; }
         .status-badge { pointer-events: none; }
-
         .badge-btn { cursor: pointer; pointer-events: auto !important; }
         .badge-btn:active { background: var(--rimuru-main); color: white; box-shadow: 0 0 15px var(--rimuru-glow); transform: scale(0.9); }
 
-        .layer-folder, .layer-kaeblox, .layer-kaeblox-file, .layer-file, .layer-gms { display: none; }
+        /* --- LOGIKA SHOW/HIDE LAYER --- */
+        .layer-folder, .layer-file, .layer-gms, .layer-kaeblox, .layer-kaeblox-file { display: none !important; }
+        .layer-root { display: table-row-group; }
+
+        #control-apps:checked ~ table .layer-root { display: none !important; }
+        #control-apps:checked ~ table .layer-folder { display: table-row-group !important; }
+
+        #control-kaetube:checked ~ table .layer-root { display: none !important; }
+        #control-kaetube:checked ~ table .layer-folder { display: none !important; }
+        #control-kaetube:checked ~ table .layer-file { display: table-row-group !important; }
+
+        #control-gms:checked ~ table .layer-root { display: none !important; }
+        #control-gms:checked ~ table .layer-folder { display: none !important; }
+        #control-gms:checked ~ table .layer-file { display: none !important; }
+        #control-gms:checked ~ table .layer-gms { display: table-row-group !important; }
+
+        #control-kaeblox:checked ~ table .layer-root { display: none !important; }
+        #control-kaeblox:checked ~ table .layer-kaeblox { display: table-row-group !important; }
+
+        #control-kaeblox-file:checked ~ table .layer-root { display: none !important; }
+        #control-kaeblox-file:checked ~ table .layer-kaeblox { display: none !important; }
+        #control-kaeblox-file:checked ~ table .layer-kaeblox-file { display: table-row-group !important; }
+
+        .back-btn { color: var(--rimuru-light); font-size: 11px; cursor: pointer; display: block; padding: 15px 30px; font-family: 'JetBrains Mono', monospace; font-weight: bold; border-bottom: 1px solid rgba(255, 255, 255, 0.03); transition: 0.2s; background: rgba(255,255,255,0.01); }
+        .back-btn:active { background: rgba(14, 165, 233, 0.1); padding-left: 20px; }
+
+        /* --- FOOTER --- */
+        footer { width: 100%; padding: 40px 0 30px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--rimuru-light); letter-spacing: 6px; text-transform: uppercase; opacity: 0.8; position: relative; z-index: 10; }
         
-        #control-apps:checked ~ table .layer-root { display: none; }
-        #control-apps:checked ~ table .layer-folder { display: table-row-group; }
-        #control-kaeblox:checked ~ table .layer-root { display: none; }
-        #control-kaeblox:checked ~ table .layer-kaeblox { display: table-row-group; }
-        #control-kaeblox-file:checked ~ table .layer-kaeblox { display: none; }
-        #control-kaeblox-file:checked ~ table .layer-kaeblox-file { display: table-row-group; }
-        #control-kaetube:checked ~ table .layer-folder { display: none; }
-        #control-kaetube:checked ~ table .layer-file { display: table-row-group; }
-        #control-gms:checked ~ table .layer-file { display: none; }
-        #control-gms:checked ~ table .layer-gms { display: table-row-group; }
-
-        .back-btn { color: var(--rimuru-light); font-size: 11px; cursor: pointer; display: block; padding: 15px 30px; font-family: 'JetBrains Mono', monospace; font-weight: bold; border-bottom: 1px solid rgba(255, 255, 255, 0.03); transition: 0.2s; }
-        .back-btn:active { background: rgba(255, 255, 255, 0.05); padding-left: 20px; }
-
-        footer { 
-            width: 100%; padding: 30px 0 20px 0; text-align: center; 
-            font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--rimuru-light); 
-            letter-spacing: 6px; text-transform: uppercase; opacity: 0.7; 
-            display: flex; align-items: center; justify-content: center; gap: 15px; 
-            position: relative; 
-        }
-        .kawaii-slime { font-size: 14px; display: inline-block; animation: wobbleHeartbeat 2.5s ease-in-out infinite; filter: drop-shadow(0 0 5px var(--rimuru-glow)); }
-
-        @keyframes wobbleHeartbeat { 0%, 100% { transform: scale(1) rotate(0deg); } 10% { transform: scale(1.1) rotate(-5deg); } 20% { transform: scale(1) rotate(5deg); } 50% { transform: scale(1); rotate(0deg); } }
         .roblox-logo { width: 24px; height: 24px; background: var(--rimuru-light); transform: rotate(-15deg); border-radius: 4px; position: relative; }
-        .roblox-logo::after { content: ''; position: absolute; top: 25%; left: 25%; width: 50%; height: 50%; background: #0b1120; border-radius: 2px; }
+        .roblox-logo::after { content: ''; position: absolute; top: 25%; left: 25%; width: 50%; height: 50%; background: #0f172a; border-radius: 2px; }
         .svg-icon-blue { width: 28px; height: 28px; fill: var(--rimuru-light); filter: drop-shadow(0 0 8px var(--rimuru-glow)); transform: rotate(-10deg); }
-
-        /* --- SLIME JUMP MEBET BANGET (ABSOLUTE) --- */
-        .slime-footer-wrap {
-            display: flex; flex-direction: column; align-items: center;
-            position: absolute;
-            bottom: 45px;
-            left: 50%; transform: translateX(-50%);
-            height: 60px;
-        }
-        .slime-character {
-            width: 50px; height: 38px;
-            background: radial-gradient(circle at 30% 30%, #7dd3fc, #0ea5e9 70%, #0369a1);
-            border-radius: 50% 50% 42% 42% / 65% 65% 35% 35%;
-            position: relative;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.4), inset 0 -4px 10px rgba(255,255,255,0.2);
-            animation: slimeLowJump 3s ease-in-out infinite;
-        }
-        .slime-character::before, .slime-character::after {
-            content: ''; position: absolute; top: 40%; width: 6px; height: 2px; background: #0f172a; border-radius: 4px;
-        }
-        .slime-character::before { left: 25%; transform: rotate(-8deg); }
-        .slime-character::after { right: 25%; transform: rotate(8deg); }
-
-        .slime-shd {
-            width: 35px; height: 4px; background: rgba(0,0,0,0.5);
-            border-radius: 50%; margin-top: 4px;
-            animation: shdPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes slimeLowJump {
-            0%, 100% { transform: translateY(0) scale(1, 1); }
-            15% { transform: translateY(0) scale(1.15, 0.8); }
-            35% { transform: translateY(-12px) scale(0.9, 1.1); }
-            55% { transform: translateY(0) scale(1.2, 0.75); }
-            75% { transform: translateY(0) scale(1, 1.05); } 
-        }
-        @keyframes shdPulse {
-            0%, 15%, 55%, 100% { transform: scale(1); opacity: 0.5; }
-            35% { transform: scale(0.6); opacity: 0.2; }
-        }
     </style>
 </head>
 <body>
@@ -168,6 +167,21 @@
             <div class="animated-title">KaeruShi Tempest</div>
             <div class="subtitle">" 悪質なスライムじゃないよ "</div>
         </header>
+
+        <div class="slime-footer-wrap">
+            <div class="slime-unit angry">
+                <div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div>
+            </div>
+            <div class="slime-unit rimuru">
+                <div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div>
+            </div>
+            <div class="slime-unit sleepy">
+                <div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div>
+            </div>
+            <div class="slime-unit happy">
+                <div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div>
+            </div>
+        </div>
         
         <div class="table-container">
             <input type="checkbox" id="control-apps" style="display: none;">
@@ -180,7 +194,7 @@
                 <thead><tr><th colspan="2">LISTED APP</th></tr></thead>
 
                 <tbody class="layer-root">
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaeblox" class="nav-label"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Roblox Lite For Android 11+</span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-kaeblox" class="nav-label"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Roblox Lite For Android 11-17</span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
                     <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Xiblox</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Roblox Lite For Android 10</span></div></div><span class="badge status-badge">STABLE</span></div></td></tr>
                     <tr class="row-base"><td colspan="2"><div class="cell-content"><label for="control-apps" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7L13.57,10.57L17.14,12.14L13.57,13.71L12,17.29L10.43,13.71L6.86,12.14L10.43,10.57L12,7Z"/></svg></div><div><strong>Premium App</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">( By KaeruShi )</span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
                 </tbody>
@@ -198,7 +212,7 @@
 
                 <tbody class="layer-gms">
                     <tr><td colspan="2"><label for="control-gms" class="back-btn">⇠ Back </label></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5Z"/></svg></div><div><strong>GMS_Core.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 37.9MB </span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/GMS_Core.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C11.79,2 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5Z"/></svg></div><div><strong>GMS_Core.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 37.9MB </span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/GMS_Core.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
                 </tbody>
 
                 <tbody class="layer-kaeblox">
@@ -216,31 +230,19 @@
                 </tbody>
 
             </table>
-        </div>
-    </div>
-
-    <footer>
-        <div class="slime-footer-wrap">
-            <div class="slime-character"></div>
-            <div class="slime-shd"></div>
-        </div>
-        <span class="kawaii-slime">🌀</span> KAERUSHI TEMPEST 2026 <span class="kawaii-slime">🌀</span>
+        </div> </div> <footer>
+        KAERUSHI TEMPEST 2026
     </footer>
 
     <script>
         const inputs = document.querySelectorAll('input[type="checkbox"]');
         let ignoreHashChange = false;
 
-        // Mendeteksi ketika menu di klik
         inputs.forEach(input => {
             input.addEventListener('change', () => {
                 if (ignoreHashChange) return;
-
-                // Cari input mana saja yang sedang tercentang aktif
                 let activeIds = [];
                 inputs.forEach(i => { if(i.checked) activeIds.push(i.id); });
-
-                // Buat "tanda" di URL browser
                 let hash = activeIds.length > 0 ? '#' + activeIds.join(',') : '#root';
                 
                 ignoreHashChange = true;
@@ -249,22 +251,14 @@
             });
         });
 
-        // Mendeteksi gestur Back pada HP
         window.addEventListener('popstate', (e) => {
             if (ignoreHashChange) return;
             ignoreHashChange = true;
-
             const activeIds = (e.state && e.state.ids) ? e.state.ids : [];
-            
-            // Matikan atau hidupkan folder sesuai posisi riwayat
-            inputs.forEach(input => {
-                input.checked = activeIds.includes(input.id);
-            });
-
+            inputs.forEach(input => { input.checked = activeIds.includes(input.id); });
             setTimeout(() => ignoreHashChange = false, 50);
         });
 
-        // Set state awal saat pertama kali web dibuka
         window.history.replaceState({ids: []}, '', '#root');
     </script>
 
