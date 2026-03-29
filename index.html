@@ -485,19 +485,19 @@
             }
             else if (document.getElementById('control-kaeblox').checked) {
                 document.getElementById('control-kaeblox').checked = false;
-                return "";
+                return null;
             }
             else if (document.getElementById('control-apps').checked) {
                 document.getElementById('control-apps').checked = false;
-                return "";
+                return null;
             }
-            return "";
+            return null;
         }
 
         inputs.forEach(input => {
             input.addEventListener('change', () => {
                 if (input.checked) {
-                    history.pushState({ folderId: input.id }, '', '');
+                    history.pushState({ folderId: input.id }, '', window.location.pathname);
                 }
             });
         });
@@ -505,18 +505,16 @@
         function handlePopAction(event) {
             const checkedInputs = document.querySelectorAll('input[type="checkbox"]:checked');
             
-            // Jika tidak ada folder yang terbuka tapi tombol back ditekan
             if (checkedInputs.length === 0) {
                 return; 
             }
 
             const nextHash = stepBackLinear();
             
-            // Hapus paksa hash dari URL jika kembali ke halaman utama
-            if (nextHash === "") {
+            if (nextHash === null) {
                 history.replaceState(null, '', window.location.pathname);
             } else {
-                history.replaceState({ folderId: nextHash }, '', '');
+                history.replaceState({ folderId: nextHash }, '', window.location.pathname);
             }
         }
 
@@ -585,25 +583,25 @@
             if (foundInGroups.has('group-layer-file')) {
                 document.getElementById('control-apps').checked = true;
                 document.getElementById('control-kaetube').checked = true;
-                history.pushState({ folderId: "control-kaetube" }, '', '');
+                history.pushState({ folderId: "control-kaetube" }, '', window.location.pathname);
             } 
             else if (foundInGroups.has('group-layer-gms')) {
                 document.getElementById('control-apps').checked = true;
                 document.getElementById('control-gms').checked = true;
-                history.pushState({ folderId: "control-gms" }, '', '');
+                history.pushState({ folderId: "control-gms" }, '', window.location.pathname);
             } 
             else if (foundInGroups.has('group-layer-folder')) {
                 document.getElementById('control-apps').checked = true;
-                history.pushState({ folderId: "control-apps" }, '', '');
+                history.pushState({ folderId: "control-apps" }, '', window.location.pathname);
             } 
             else if (foundInGroups.has('group-layer-kaeblox-file')) {
                 document.getElementById('control-kaeblox').checked = true;
                 document.getElementById('control-kaeblox-file').checked = true;
-                history.pushState({ folderId: "control-kaeblox-file" }, '', '');
+                history.pushState({ folderId: "control-kaeblox-file" }, '', window.location.pathname);
             }
             else if (foundInGroups.has('group-layer-kaeblox')) {
                 document.getElementById('control-kaeblox').checked = true;
-                history.pushState({ folderId: "control-kaeblox" }, '', '');
+                history.pushState({ folderId: "control-kaeblox" }, '', window.location.pathname);
             }
         }
 
