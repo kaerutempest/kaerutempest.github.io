@@ -7,6 +7,12 @@
     <title>KaeruShi Tempest // Cloud Archive</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono&family=Syne:wght@800&display=swap" rel="stylesheet">
     <style>
+        /* INI FITUR SMOOTH SCROLL NYA PAK */
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch; /* Biar licin di HP */
+        }
+
         :root {
             --rimuru-light: #7dd3fc !important;
             --rimuru-main: #0ea5e9 !important;
@@ -22,9 +28,10 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-image: radial-gradient(circle at 50% -20%, #0c4a6e 0%, #020617 80%);
             background-attachment: fixed;
+            overflow-x: hidden; /* Mencegah patah-patah saat scroll */
         }
 
-        .wrapper { width: 100%; max-width: 800px; padding: 60px 20px 40px 20px; flex: 1; z-index: 10; box-sizing: border-box; }
+        .wrapper { width: 100%; max-width: 800px; padding: 60px 20px 20px 20px; flex: 1; z-index: 10; box-sizing: border-box; }
 
         header { margin-bottom: 50px; text-align: center; width: 100%; }
         
@@ -54,7 +61,7 @@
 
         .subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--rimuru-light); letter-spacing: 4px; margin-top: 20px; opacity: 0.9; }
 
-        .table-container { background: var(--glass); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 40px 100px rgba(0,0,0,0.6); overflow: hidden; margin-bottom: 20px; }
+        .table-container { background: var(--glass); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 40px 100px rgba(0,0,0,0.6); overflow: hidden; margin-bottom: 10px; }
         table { width: 100%; border-collapse: collapse; }
         th { text-align: left; padding: 22px 30px; background: rgba(14, 165, 233, 0.05); font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 3px; }
         
@@ -99,13 +106,59 @@
         .back-btn { color: var(--rimuru-light); font-size: 11px; cursor: pointer; display: block; padding: 15px 30px; font-family: 'JetBrains Mono', monospace; font-weight: bold; border-bottom: 1px solid rgba(255, 255, 255, 0.03); transition: 0.2s; }
         .back-btn:active { background: rgba(255, 255, 255, 0.05); padding-left: 20px; }
 
-        footer { width: 100%; padding: 40px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--rimuru-light); letter-spacing: 6px; text-transform: uppercase; opacity: 0.7; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        footer { 
+            width: 100%; padding: 30px 0 20px 0; text-align: center; 
+            font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--rimuru-light); 
+            letter-spacing: 6px; text-transform: uppercase; opacity: 0.7; 
+            display: flex; align-items: center; justify-content: center; gap: 15px; 
+            position: relative; 
+        }
         .kawaii-slime { font-size: 14px; display: inline-block; animation: wobbleHeartbeat 2.5s ease-in-out infinite; filter: drop-shadow(0 0 5px var(--rimuru-glow)); }
 
         @keyframes wobbleHeartbeat { 0%, 100% { transform: scale(1) rotate(0deg); } 10% { transform: scale(1.1) rotate(-5deg); } 20% { transform: scale(1) rotate(5deg); } 50% { transform: scale(1); rotate(0deg); } }
         .roblox-logo { width: 24px; height: 24px; background: var(--rimuru-light); transform: rotate(-15deg); border-radius: 4px; position: relative; }
         .roblox-logo::after { content: ''; position: absolute; top: 25%; left: 25%; width: 50%; height: 50%; background: #0b1120; border-radius: 2px; }
         .svg-icon-blue { width: 28px; height: 28px; fill: var(--rimuru-light); filter: drop-shadow(0 0 8px var(--rimuru-glow)); transform: rotate(-10deg); }
+
+        /* --- SLIME JUMP MEBET BANGET (ABSOLUTE) --- */
+        .slime-footer-wrap {
+            display: flex; flex-direction: column; align-items: center;
+            position: absolute;
+            bottom: 45px;
+            left: 50%; transform: translateX(-50%);
+            height: 60px;
+        }
+        .slime-character {
+            width: 50px; height: 38px;
+            background: radial-gradient(circle at 30% 30%, #7dd3fc, #0ea5e9 70%, #0369a1);
+            border-radius: 50% 50% 42% 42% / 65% 65% 35% 35%;
+            position: relative;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.4), inset 0 -4px 10px rgba(255,255,255,0.2);
+            animation: slimeLowJump 3s ease-in-out infinite;
+        }
+        .slime-character::before, .slime-character::after {
+            content: ''; position: absolute; top: 40%; width: 6px; height: 2px; background: #0f172a; border-radius: 4px;
+        }
+        .slime-character::before { left: 25%; transform: rotate(-8deg); }
+        .slime-character::after { right: 25%; transform: rotate(8deg); }
+
+        .slime-shd {
+            width: 35px; height: 4px; background: rgba(0,0,0,0.5);
+            border-radius: 50%; margin-top: 4px;
+            animation: shdPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes slimeLowJump {
+            0%, 100% { transform: translateY(0) scale(1, 1); }
+            15% { transform: translateY(0) scale(1.15, 0.8); }
+            35% { transform: translateY(-12px) scale(0.9, 1.1); }
+            55% { transform: translateY(0) scale(1.2, 0.75); }
+            75% { transform: translateY(0) scale(1, 1.05); } 
+        }
+        @keyframes shdPulse {
+            0%, 15%, 55%, 100% { transform: scale(1); opacity: 0.5; }
+            35% { transform: scale(0.6); opacity: 0.2; }
+        }
     </style>
 </head>
 <body>
@@ -155,11 +208,11 @@
 
                 <tbody class="layer-kaeblox-file">
                     <tr><td colspan="2"><label for="control-kaeblox-file" class="back-btn">⇠ Back </label></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_1.apk</strong></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_1.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_2.apk</strong></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_2.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_3.apk</strong></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_3.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_4.apk</strong></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_4.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_5.apk</strong></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_5.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_1.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 94.3MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_1.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_2.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 94.3MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_2.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_3.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 94.3MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_3.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_4.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 94.3MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_4.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                    <tr class="row-base"><td colspan="2"><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div><strong>Kaeblox_5.apk</strong><span style="display:block; font-size:10px; color:#64748b; margin-top:4px;">Size: 94.3MB</span></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_5.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
                 </tbody>
 
             </table>
@@ -167,6 +220,10 @@
     </div>
 
     <footer>
+        <div class="slime-footer-wrap">
+            <div class="slime-character"></div>
+            <div class="slime-shd"></div>
+        </div>
         <span class="kawaii-slime">🌀</span> KAERUSHI TEMPEST 2026 <span class="kawaii-slime">🌀</span>
     </footer>
 
