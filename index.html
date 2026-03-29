@@ -227,5 +227,46 @@
         <span class="kawaii-slime">🌀</span> KAERUSHI TEMPEST 2026 <span class="kawaii-slime">🌀</span>
     </footer>
 
+    <script>
+        const inputs = document.querySelectorAll('input[type="checkbox"]');
+        let ignoreHashChange = false;
+
+        // Mendeteksi ketika menu di klik
+        inputs.forEach(input => {
+            input.addEventListener('change', () => {
+                if (ignoreHashChange) return;
+
+                // Cari input mana saja yang sedang tercentang aktif
+                let activeIds = [];
+                inputs.forEach(i => { if(i.checked) activeIds.push(i.id); });
+
+                // Buat "tanda" di URL browser
+                let hash = activeIds.length > 0 ? '#' + activeIds.join(',') : '#root';
+                
+                ignoreHashChange = true;
+                window.history.pushState({ids: activeIds}, '', hash);
+                setTimeout(() => ignoreHashChange = false, 50);
+            });
+        });
+
+        // Mendeteksi gestur Back pada HP
+        window.addEventListener('popstate', (e) => {
+            if (ignoreHashChange) return;
+            ignoreHashChange = true;
+
+            const activeIds = (e.state && e.state.ids) ? e.state.ids : [];
+            
+            // Matikan atau hidupkan folder sesuai posisi riwayat
+            inputs.forEach(input => {
+                input.checked = activeIds.includes(input.id);
+            });
+
+            setTimeout(() => ignoreHashChange = false, 50);
+        });
+
+        // Set state awal saat pertama kali web dibuka
+        window.history.replaceState({ids: []}, '', '#root');
+    </script>
+
 </body>
 </html>
