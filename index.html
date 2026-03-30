@@ -15,7 +15,7 @@
             --rimuru-glow: rgba(14, 165, 233, 0.4) !important;
             --bg-deep: #020617 !important;
             --glass: rgba(15, 23, 42, 0.85) !important;
-            --border: rgba(14, 165, 233, 0.15) !important;
+            --border: rgba(14, 165, 233,0.15) !important;
             --blush-color: rgba(244, 114, 182, 0.8) !important;
             --neon-green: #10b981 !important;
         }
@@ -304,12 +304,12 @@
             letter-spacing: 0.5px;
         }
 
-        /* --- STYLE BACK MINIMALIS (POSISI DIUBAH KE KANAN) --- */
+        /* --- STYLE BACK MINIMALIS --- */
         .back-btn-row td {
             padding: 0 0 10px 0 !important;
             border: none !important;
             display: flex;
-            justify-content: flex-end; /* Diubah dari space-between ke flex-end agar bergeser ke kanan */
+            justify-content: flex-end; 
             width: 100%;
             box-sizing: border-box;
         }
@@ -517,7 +517,8 @@
         inputs.forEach(input => {
             input.addEventListener('change', () => {
                 if (input.checked) {
-                    history.pushState({ folderId: input.id }, '', window.location.pathname);
+                    // FIX: Tetap rekam state folder tapi tanpa mengotori URL di address bar browser
+                    history.pushState({ folderId: input.id }, '');
                 }
             });
         });
@@ -532,9 +533,10 @@
             const nextHash = stepBackLinear();
             
             if (nextHash === null) {
-                history.replaceState(null, '', window.location.pathname);
+                // FIX: Menghapus state di background tanpa memicu kemunculan tag di link
+                history.replaceState(null, '');
             } else {
-                history.replaceState({ folderId: nextHash }, '', window.location.pathname);
+                history.replaceState({ folderId: nextHash }, '');
             }
         }
 
@@ -588,7 +590,7 @@
             if (filter === "") {
                 inputs.forEach(input => input.checked = false);
                 resetSearchUI();
-                history.replaceState(null, '', window.location.pathname);
+                history.replaceState(null, '');
                 return;
             }
 
@@ -636,7 +638,7 @@
                 noResult.innerHTML = `<td style="text-align:center; padding: 20px; color: #64748b; font-family:'JetBrains Mono',monospace; font-size:12px;">❌ APK File Not Found!</td>`;
                 tbodyRoot.appendChild(noResult);
                 tbodyRoot.style.display = "table-row-group";
-                history.replaceState(null, '', window.location.pathname);
+                history.replaceState(null, '');
                 return;
             }
         }
