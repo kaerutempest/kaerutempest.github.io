@@ -41,7 +41,7 @@
         .wrapper { 
             width: 100%; 
             max-width: 600px; 
-            padding: 60px 24px 40px 24px;
+            padding: 60px 16px 40px 16px; 
             flex: 1; z-index: 10; box-sizing: border-box; position: relative; 
         }
         header { margin-bottom: 30px; text-align: center; width: 100%; }
@@ -112,7 +112,7 @@
         /* --- SEARCH BAR --- */
         .search-container {
             width: 100%; max-width: 460px; margin: 0 auto 25px auto; position: relative; z-index: 15;
-            display: flex; gap: 10px; align-items: center;
+            display: flex; gap: 10px; align-items: center; box-sizing: border-box;
         }
         .search-wrapper { position: relative; flex: 1; }
         .search-input {
@@ -154,11 +154,14 @@
             overflow: hidden; position: relative; z-index: 15;
             width: 100%;
             min-height: 520px; 
+            box-sizing: border-box;
         }
         table { 
             width: 100%; 
             border-collapse: separate; 
             border-spacing: 0 10px; 
+            table-layout: fixed; 
+            box-sizing: border-box;
         }
         
         th { 
@@ -189,18 +192,20 @@
         }
 
         .cell-content { 
-            padding: 14px 20px; 
+            padding: 14px 16px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
-            gap: 16px; 
+            gap: 12px; 
             flex-wrap: nowrap;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .nav-label { 
             display: flex; 
             align-items: center; 
-            gap: 14px; 
+            gap: 12px; 
             color: #fff; 
             transition: 0.2s; 
             cursor: pointer; 
@@ -217,7 +222,7 @@
         }
         
         .text-wrap strong {
-            font-size: 15px;
+            font-size: 14px; 
             font-weight: 700;
             white-space: nowrap;
             overflow: hidden;
@@ -231,7 +236,7 @@
 
         /* --- IKON MENU WEB --- */
         .icon-square { 
-            min-width: 44px; width: 44px; height: 44px;
+            min-width: 40px; width: 40px; height: 40px; 
             background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(14, 165, 233, 0.15); 
             border-radius: 10px; display: flex; align-items: center; justify-content: center; transition: 0.2s;
             flex-shrink: 0;
@@ -245,7 +250,7 @@
         .badge { 
             font-family: 'JetBrains Mono', monospace; 
             font-size: 11px; 
-            padding: 6px 14px; 
+            padding: 6px 12px; 
             border-radius: 8px; 
             background: rgba(14, 165, 233, 0.08); 
             color: var(--rimuru-light); 
@@ -273,21 +278,21 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 10px;
             font-weight: 700;
-            padding: 4px 8px;
+            padding: 4px 0;
             background: rgba(15, 23, 42, 0.7);
             color: #94a3b8;
             letter-spacing: 0.5px;
             border-right: 1px solid rgba(14, 165, 233, 0.2);
             white-space: nowrap;
+            text-align: center;
         }
         .pill-cell:last-child {
             border-right: none;
         }
         
-        /* Pewarnaan Khusus Sel Tabel */
-        .p-size { color: #ffffff; }
-        .p-safe { color: #10b981 !important; background: rgba(16, 185, 129, 0.1); }
-        .p-apk { color: #38bdf8 !important; }
+        .p-size { width: 65px; color: #ffffff; }
+        .p-safe { width: 55px; color: #10b981 !important; background: rgba(16, 185, 129, 0.1); }
+        .p-apk { width: 40px; color: #38bdf8 !important; }
 
         .text-wrap span.sub-checked {
             color: var(--neon-green) !important;
@@ -299,10 +304,14 @@
             letter-spacing: 0.5px;
         }
 
-        /* --- STYLE BACK MINIMALIS --- */
+        /* --- STYLE BACK MINIMALIS (POSISI DIUBAH KE KANAN) --- */
         .back-btn-row td {
             padding: 0 0 10px 0 !important;
-            text-align: right; 
+            border: none !important;
+            display: flex;
+            justify-content: flex-end; /* Diubah dari space-between ke flex-end agar bergeser ke kanan */
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .back-btn { 
@@ -354,22 +363,22 @@
             display: none; 
         }
 
-        .layer-root { display: table-row-group; }
+        body:not(.searching) .layer-root { display: table-row-group; }
 
-        #control-apps:checked ~ table .layer-root { display: none; }
-        #control-apps:checked ~ table .layer-folder { display: table-row-group; }
+        body:not(.searching) #control-apps:checked ~ table .layer-root { display: none; }
+        body:not(.searching) #control-apps:checked ~ table .layer-folder { display: table-row-group; }
 
-        #control-kaetube:checked ~ table .layer-folder { display: none; }
-        #control-kaetube:checked ~ table .layer-file { display: table-row-group; }
+        body:not(.searching) #control-kaetube:checked ~ table .layer-folder { display: none; }
+        body:not(.searching) #control-kaetube:checked ~ table .layer-file { display: table-row-group; }
 
-        #control-gms:checked ~ table .layer-folder { display: none; }
-        #control-gms:checked ~ table .layer-gms { display: table-row-group; }
+        body:not(.searching) #control-gms:checked ~ table .layer-folder { display: none; }
+        body:not(.searching) #control-gms:checked ~ table .layer-gms { display: table-row-group; }
 
-        #control-kaeblox:checked ~ table .layer-root { display: none; }
-        #control-kaeblox:checked ~ table .layer-kaeblox { display: table-row-group; }
+        body:not(.searching) #control-kaeblox:checked ~ table .layer-root { display: none; }
+        body:not(.searching) #control-kaeblox:checked ~ table .layer-kaeblox { display: table-row-group; }
 
-        #control-kaeblox-file:checked ~ table .layer-kaeblox { display: none; }
-        #control-kaeblox-file:checked ~ table .layer-kaeblox-file { display: table-row-group; }
+        body:not(.searching) #control-kaeblox-file:checked ~ table .layer-kaeblox { display: none; }
+        body:not(.searching) #control-kaeblox-file:checked ~ table .layer-kaeblox-file { display: table-row-group; }
 
         /* --- FOOTER --- */
         footer { 
@@ -420,7 +429,18 @@
             <input type="checkbox" id="control-gms" style="display: none;">
 
             <table>
-                <thead><tr><th colspan="2">LISTED APP</th></tr></thead>
+                <thead><tr><th>LISTED APP</th></tr></thead>
+
+                <tbody id="search-back-container" style="display: none;">
+                    <tr class="back-btn-row">
+                        <td>
+                            <button class="back-btn" onclick="resetSearchUI()">
+                                <span class="back-icon">❮</span>
+                                <span class="back-text-title">Back</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
 
                 <tbody class="layer-root" id="group-layer-root">
                     <tr class="row-base"><td><div class="cell-content"><label for="control-kaeblox" class="nav-label"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox</strong><span>Roblox Lite For Android 11-17 </span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
@@ -521,87 +541,103 @@
         window.addEventListener('popstate', handlePopAction);
 
         document.querySelectorAll('.back-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const searchInput = document.getElementById('searchInput');
-                if (searchInput) searchInput.value = "";
-                const rows = document.querySelectorAll('.row-base');
-                rows.forEach(row => row.style.display = "");
-                const oldNoResult = document.getElementById('no-result-row');
-                if (oldNoResult) oldNoResult.remove();
+            if (btn.closest('#search-back-container')) return;
 
+            btn.addEventListener('click', (e) => {
+                resetSearchUI();
                 window.history.back();
             });
         });
 
-        /* --- LOGIKA PENCARIAN FILE --- */
+        /* --- FUNGSI RESET TAMPILAN SEARCH --- */
+        function resetSearchUI() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) searchInput.value = "";
+            
+            document.body.classList.remove('searching');
+
+            const rows = document.querySelectorAll('.row-base');
+            rows.forEach(row => row.style.display = "");
+            
+            const backRows = document.querySelectorAll('.back-btn-row');
+            backRows.forEach(br => br.style.display = "");
+
+            const allTbodys = document.querySelectorAll('tbody');
+            allTbodys.forEach(tbody => {
+                tbody.style.display = ""; 
+            });
+
+            document.getElementById('search-back-container').style.display = "none";
+
+            const oldNoResult = document.getElementById('no-result-row');
+            if (oldNoResult) oldNoResult.remove();
+        }
+
+        /* --- LOGIKA PENCARIAN FILE APK SAJA --- */
         function executeSearch() {
             const searchInput = document.getElementById('searchInput');
             const filter = searchInput.value.toLowerCase().trim();
             const rows = document.querySelectorAll('.row-base');
+            const backRows = document.querySelectorAll('.back-btn-row');
             const tbodyRoot = document.getElementById('group-layer-root');
+            const searchBackContainer = document.getElementById('search-back-container');
 
             const oldNoResult = document.getElementById('no-result-row');
             if (oldNoResult) oldNoResult.remove();
 
             if (filter === "") {
                 inputs.forEach(input => input.checked = false);
-                rows.forEach(row => row.style.display = "");
+                resetSearchUI();
                 history.replaceState(null, '', window.location.pathname);
                 return;
             }
 
-            let foundInGroups = new Set(); 
             let totalFound = 0;
+            inputs.forEach(input => input.checked = false);
+
+            document.body.classList.add('searching');
+
+            backRows.forEach(br => {
+                br.style.display = "none";
+            });
+
+            const allTbodys = document.querySelectorAll('tbody');
+            allTbodys.forEach(tbody => {
+                if (tbody.id !== 'search-back-container') {
+                    tbody.style.display = "none";
+                }
+            });
 
             rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                if (text.includes(filter)) {
+                const titleElement = row.querySelector('.text-wrap strong');
+                const titleText = titleElement ? titleElement.innerText.toLowerCase() : "";
+                const isApkFile = row.querySelector('.pill-cell.p-apk') !== null;
+
+                if (isApkFile && titleText.includes(filter)) {
                     row.style.display = ""; 
                     totalFound++;
-                    
                     const parentTbody = row.closest('tbody');
-                    if(parentTbody) {
-                        foundInGroups.add(parentTbody.id);
+                    if (parentTbody) {
+                        parentTbody.style.display = "table-row-group";
                     }
                 } else {
                     row.style.display = "none"; 
                 }
             });
 
-            if (totalFound === 0) {
-                inputs.forEach(input => input.checked = false); 
+            if (totalFound > 0) {
+                searchBackContainer.style.display = "table-row-group";
+                searchBackContainer.querySelector('.back-btn-row').style.display = "flex";
+            } else {
+                searchBackContainer.style.display = "none";
+                
                 const noResult = document.createElement('tr');
                 noResult.id = "no-result-row";
-                noResult.innerHTML = `<td style="text-align:center; padding: 20px; color: #64748b; font-family:'JetBrains Mono',monospace; font-size:12px;">❌ File Not Found!</td>`;
+                noResult.innerHTML = `<td style="text-align:center; padding: 20px; color: #64748b; font-family:'JetBrains Mono',monospace; font-size:12px;">❌ APK File Not Found!</td>`;
                 tbodyRoot.appendChild(noResult);
+                tbodyRoot.style.display = "table-row-group";
                 history.replaceState(null, '', window.location.pathname);
                 return;
-            }
-
-            inputs.forEach(input => input.checked = false);
-
-            if (foundInGroups.has('group-layer-file')) {
-                document.getElementById('control-apps').checked = true;
-                document.getElementById('control-kaetube').checked = true;
-                history.pushState({ folderId: "control-kaetube" }, '', window.location.pathname);
-            } 
-            else if (foundInGroups.has('group-layer-gms')) {
-                document.getElementById('control-apps').checked = true;
-                document.getElementById('control-gms').checked = true;
-                history.pushState({ folderId: "control-gms" }, '', window.location.pathname);
-            } 
-            else if (foundInGroups.has('group-layer-folder')) {
-                document.getElementById('control-apps').checked = true;
-                history.pushState({ folderId: "control-apps" }, '', window.location.pathname);
-            } 
-            else if (foundInGroups.has('group-layer-kaeblox-file')) {
-                document.getElementById('control-kaeblox').checked = true;
-                document.getElementById('control-kaeblox-file').checked = true;
-                history.pushState({ folderId: "control-kaeblox-file" }, '', window.location.pathname);
-            }
-            else if (foundInGroups.has('group-layer-kaeblox')) {
-                document.getElementById('control-kaeblox').checked = true;
-                history.pushState({ folderId: "control-kaeblox" }, '', window.location.pathname);
             }
         }
 
