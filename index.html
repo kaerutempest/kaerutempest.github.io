@@ -41,10 +41,10 @@
         .wrapper { 
             width: 100%; 
             max-width: 600px; 
-            padding: 60px 16px 40px 16px; 
+            padding: 40px 16px 40px 16px; 
             flex: 1; z-index: 10; box-sizing: border-box; position: relative; 
         }
-        header { margin-bottom: 30px; text-align: center; width: 100%; }
+        header { margin-bottom: 25px; text-align: center; width: 100%; }
         
         .header-title-wrap {
             display: flex; align-items: center; justify-content: center; gap: 12px;
@@ -109,6 +109,73 @@
         @keyframes rimuruWobbleDiam { 0%, 65%, 100% { border-radius: 50% 50% 45% 45% / 65% 65% 35% 35%; } 75% { border-radius: 55% 45% 50% 50% / 65% 60% 40% 35%; } 85% { border-radius: 45% 55% 50% 50% / 60% 65% 35% 40%; } }
         @keyframes rimuruEyeLook { 0%, 65%, 100% { transform: translateX(0); } 75% { transform: translateX(-1.5px); } 85% { transform: translateX(1.5px); } }
 
+        /* --- CAROUSEL SLIDER --- */
+        .slider-container {
+            width: 100%; max-width: 460px; margin: 0 auto 25px auto;
+            position: relative; z-index: 15; overflow: hidden;
+            border-radius: 16px; border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.6); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        .slider-wrapper {
+            display: flex; width: 100%; height: 200px; 
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .slide {
+            min-width: 100%; height: 100%; position: relative;
+            display: flex; align-items: flex-end; 
+            padding: 24px 20px; box-sizing: border-box;
+            overflow: hidden;
+        }
+        
+        .slide-bg-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; opacity: 0.6;
+            transition: transform 6s ease-out;
+        }
+        
+        .slide:nth-child(1) .slide-bg-img { background: linear-gradient(135deg, #020617, #ef4444, #7f1d1d); } 
+        .slide:nth-child(2) .slide-bg-img { background: linear-gradient(135deg, #020617, #0ea5e9, #0369a1); } 
+        .slide:nth-child(3) .slide-bg-img { background: linear-gradient(135deg, #020617, #22c55e, #14532d); } 
+        .slide:nth-child(4) .slide-bg-img { background: linear-gradient(135deg, #020617, #eab308, #713f12); } 
+
+        .slide.active-zoom .slide-bg-img { transform: scale(1.15); }
+
+        .slide::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(2, 6, 23, 0.95) 10%, rgba(2, 6, 23, 0.4) 60%, rgba(15, 23, 42, 0.1)); 
+            z-index: 1; pointer-events: none;
+        }
+
+        .slide-content { position: relative; z-index: 2; width: 100%; }
+        .slide-title { 
+            font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: #fff; 
+            margin-bottom: 6px; text-shadow: 0 2px 6px rgba(0,0,0,0.9); 
+            letter-spacing: 0.5px;
+        }
+        .slide-desc { 
+            font-size: 12px; color: #e2e8f0; line-height: 1.5; font-weight: 500; 
+            text-shadow: 0 1px 4px rgba(0,0,0,0.9); 
+        }
+
+        .name-red { color: #fca5a5 !important; } 
+        .name-blue { color: #7dd3fc !important; } 
+
+        /* --- INDIKATOR TITIK SLIDER (DINAMIS) --- */
+        .slider-dots {
+            position: absolute; top: 12px; right: 12px;
+            display: flex; gap: 6px; z-index: 5; background: rgba(0,0,0,0.4); 
+            padding: 5px 8px; border-radius: 12px; backdrop-filter: blur(4px);
+        }
+        .dot {
+            width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.4);
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dot.active.color-angry { background: #ef4444; width: 16px; border-radius: 4px; box-shadow: 0 0 10px rgba(239, 68, 68, 0.6); }
+        .dot.active.color-rimuru { background: #0ea5e9; width: 16px; border-radius: 4px; box-shadow: 0 0 10px rgba(14, 165, 233, 0.6); }
+        .dot.active.color-sleepy { background: #22c55e; width: 16px; border-radius: 4px; box-shadow: 0 0 10px rgba(34, 197, 94, 0.6); }
+        .dot.active.color-happy { background: #eab308; width: 16px; border-radius: 4px; box-shadow: 0 0 10px rgba(234, 179, 8, 0.6); }
+
         /* --- SEARCH BAR --- */
         .search-container {
             width: 100%; max-width: 460px; margin: 0 auto 25px auto; position: relative; z-index: 15;
@@ -116,32 +183,18 @@
         }
         .search-wrapper { position: relative; flex: 1; }
         .search-input {
-            width: 100%; 
-            padding: 14px 18px 14px 48px; 
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(14, 165, 233, 0.3);
-            border-radius: 12px;
-            color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; 
-            font-size: 14px; 
+            width: 100%; padding: 14px 18px 14px 48px; background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 12px;
+            color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; 
             box-sizing: border-box; transition: all 0.3s ease;
         }
-        .search-input:focus { 
-            outline: none; 
-            border-color: var(--rimuru-main); 
-            background: rgba(15, 23, 42, 0.85); 
-            box-shadow: 0 0 15px var(--rimuru-glow);
-        }
+        .search-input:focus { outline: none; border-color: var(--rimuru-main); background: rgba(15, 23, 42, 0.85); box-shadow: 0 0 15px var(--rimuru-glow); }
         .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; fill: #64748b; pointer-events: none; transition: 0.2s; }
         .search-input:focus + .search-icon { fill: var(--rimuru-light); }
-
         .search-btn {
-            background: rgba(14, 165, 233, 0.1); 
-            border: 1px solid rgba(14, 165, 233, 0.3);
-            border-radius: 12px; 
-            width: 48px; height: 48px; 
-            display: flex;
-            align-items: center; justify-content: center; cursor: pointer;
-            transition: all 0.2s ease;
+            background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 12px; width: 48px; height: 48px; display: flex;
+            align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;
         }
         .search-btn:hover { background: rgba(14, 165, 233, 0.25); border-color: var(--rimuru-light); box-shadow: 0 0 12px var(--rimuru-glow); }
         .search-btn:active { transform: scale(0.95); }
@@ -150,245 +203,71 @@
 
         /* --- SISTEM TABEL FUTURISTIK --- */
         .table-container { 
-            background: transparent;
-            overflow: hidden; position: relative; z-index: 15;
-            width: 100%;
-            min-height: 520px; 
-            box-sizing: border-box;
+            background: transparent; overflow: hidden; position: relative; z-index: 15;
+            width: 100%; min-height: 520px; box-sizing: border-box;
         }
-        table { 
-            width: 100%; 
-            border-collapse: separate; 
-            border-spacing: 0 10px; 
-            table-layout: fixed; 
-            box-sizing: border-box;
-        }
-        
-        th { 
-            text-align: left; 
-            padding: 10px 16px; 
-            font-size: 11px; 
-            color: #64748b; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            border-bottom: 1px solid rgba(14, 165, 233, 0.2);
-            padding-bottom: 8px;
-        }
-        
-        .row-base { 
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
+        table { width: 100%; border-collapse: separate; border-spacing: 0 10px; table-layout: fixed; box-sizing: border-box; }
+        th { text-align: left; padding: 10px 16px; font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(14, 165, 233, 0.2); padding-bottom: 8px; }
+        .row-base { background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .row-base td:first-child { border-top-left-radius: 16px; border-bottom-left-radius: 16px; border-left: 1px solid var(--border); }
         .row-base td:last-child { border-top-right-radius: 16px; border-bottom-right-radius: 16px; border-right: 1px solid var(--border); }
         .row-base td { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-
-        .row-base:hover { 
-            background: rgba(14, 165, 233, 0.05);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(14, 165, 233, 0.1);
-        }
-
-        .cell-content { 
-            padding: 14px 16px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            gap: 12px; 
-            flex-wrap: nowrap;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .nav-label { 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            color: #fff; 
-            transition: 0.2s; 
-            cursor: pointer; 
-            flex: 1; 
-            min-width: 0; 
-        }
-
-        .text-wrap {
-            display: flex;
-            flex-direction: column;
-            gap: 2px; 
-            min-width: 0;
-            flex: 1;
-        }
-        
-        .text-wrap strong {
-            font-size: 14px; 
-            font-weight: 700;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .text-wrap span {
-            font-size: 11px; 
-            color: #64748b;
-        }
-
-        /* --- IKON MENU WEB --- */
-        .icon-square { 
-            min-width: 40px; width: 40px; height: 40px; 
-            background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(14, 165, 233, 0.15); 
-            border-radius: 10px; display: flex; align-items: center; justify-content: center; transition: 0.2s;
-            flex-shrink: 0;
-        }
-        .row-base:hover .icon-square {
-            border-color: var(--rimuru-light);
-            box-shadow: 0 0 10px var(--rimuru-glow);
-        }
-
-        /* --- BADGE & TOMBOL --- */
-        .badge { 
-            font-family: 'JetBrains Mono', monospace; 
-            font-size: 11px; 
-            padding: 6px 12px; 
-            border-radius: 8px; 
-            background: rgba(14, 165, 233, 0.08); 
-            color: var(--rimuru-light); 
-            border: 1px solid rgba(14, 165, 233, 0.15); 
-            transition: all 0.2s ease; 
-            flex-shrink: 0; 
-            white-space: nowrap;
-        }
+        .row-base:hover { background: rgba(14, 165, 233, 0.05); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(14, 165, 233, 0.1); }
+        .cell-content { padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: nowrap; width: 100%; box-sizing: border-box; }
+        .nav-label { display: flex; align-items: center; gap: 12px; color: #fff; transition: 0.2s; cursor: pointer; flex: 1; min-width: 0; }
+        .text-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+        .text-wrap strong { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .text-wrap span { font-size: 11px; color: #64748b; }
+        .icon-square { min-width: 40px; width: 40px; height: 40px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(14, 165, 233, 0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; transition: 0.2s; flex-shrink: 0; }
+        .row-base:hover .icon-square { border-color: var(--rimuru-light); box-shadow: 0 0 10px var(--rimuru-glow); }
+        .badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 6px 12px; border-radius: 8px; background: rgba(14, 165, 233, 0.08); color: var(--rimuru-light); border: 1px solid rgba(14, 165, 233, 0.15); transition: all 0.2s ease; flex-shrink: 0; white-space: nowrap; }
         .status-badge { pointer-events: none; opacity: 0.8; }
         .badge-btn { cursor: pointer; pointer-events: auto !important; }
         .badge-btn:hover { background: rgba(14, 165, 233, 0.2); border-color: var(--rimuru-light); color: #fff; box-shadow: 0 0 8px var(--rimuru-glow); }
         .badge-btn:active { background: var(--rimuru-main); color: white; transform: scale(0.95); }
-
-        /* --- MINI TABLE PILL GRID SYSTEM --- */
-        .info-table-pill { 
-            display: flex; 
-            align-items: center; 
-            margin-top: 6px; 
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid rgba(14, 165, 233, 0.2);
-            width: max-content;
-        }
-        .pill-cell {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 4px 0;
-            background: rgba(15, 23, 42, 0.7);
-            color: #94a3b8;
-            letter-spacing: 0.5px;
-            border-right: 1px solid rgba(14, 165, 233, 0.2);
-            white-space: nowrap;
-            text-align: center;
-        }
-        .pill-cell:last-child {
-            border-right: none;
-        }
+        .info-table-pill { display: flex; align-items: center; margin-top: 6px; border-radius: 6px; overflow: hidden; border: 1px solid rgba(14, 165, 233, 0.2); width: max-content; }
+        .pill-cell { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 4px 0; background: rgba(15, 23, 42, 0.7); color: #94a3b8; letter-spacing: 0.5px; border-right: 1px solid rgba(14, 165, 233, 0.2); white-space: nowrap; text-align: center; }
+        .pill-cell:last-child { border-right: none; }
         
-        .p-size { width: 65px; color: #ffffff; }
+        .p-size { width: 85px; color: #ffffff; } 
         .p-safe { width: 55px; color: #10b981 !important; background: rgba(16, 185, 129, 0.1); }
         .p-apk { width: 40px; color: #38bdf8 !important; }
-
-        .text-wrap span.sub-checked {
-            color: var(--neon-green) !important;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-weight: 600;
-            font-size: 10px !important;
-            letter-spacing: 0.5px;
-        }
-
-        /* --- STYLE BACK MINIMALIS --- */
-        .back-btn-row td {
-            padding: 0 0 10px 0 !important;
-            border: none !important;
-            display: flex;
-            justify-content: flex-end; 
-            width: 100%;
-            box-sizing: border-box;
-        }
         
-        .back-btn { 
-            display: inline-flex;
-            align-items: center; 
-            justify-content: center;
-            gap: 8px;
-            padding: 10px 18px; 
-            background: var(--glass); 
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-        
-        .back-btn:hover { 
-            background: rgba(14, 165, 233, 0.05);
-            border-color: var(--rimuru-light);
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .back-icon {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--rimuru-main);
-            transition: 0.2s;
-        }
-
-        .back-text-title { 
-            font-size: 12px; 
-            font-weight: 700; 
-            color: #fff;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            letter-spacing: 0.5px;
-            transition: 0.2s;
-        }
-
-        .back-btn:hover .back-text-title {
-            color: var(--rimuru-light);
-        }
-        
+        .text-wrap span.sub-checked { color: var(--neon-green) !important; display: flex; align-items: center; gap: 4px; font-weight: 600; font-size: 10px !important; letter-spacing: 0.5px; }
+        .back-btn-row td { padding: 0 0 10px 0 !important; border: none !important; display: flex; justify-content: flex-end; width: 100%; box-sizing: border-box; }
+        .back-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 18px; background: var(--glass); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+        .back-btn:hover { background: rgba(14, 165, 233, 0.05); border-color: var(--rimuru-light); box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15); transform: translateY(-2px); }
+        .back-icon { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: bold; color: var(--rimuru-main); transition: 0.2s; }
+        .back-text-title { font-size: 12px; font-weight: 700; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.5px; transition: 0.2s; }
+        .back-btn:hover .back-text-title { color: var(--rimuru-light); }
         .back-btn:active { transform: scale(0.96) translateY(0); }
 
-        /* --- LOGIKA LAYER ANTI BOCOR --- */
-        .layer-root, .layer-folder, .layer-file, .layer-gms, .layer-kaeblox, .layer-kaeblox-file { 
-            display: none; 
-        }
+        /* --- SISTEM LAYER ANTI BOCOR --- */
+        /* Pastikan checkbox default sembunyi */
+        .layer-root, .layer-folder, .layer-file, .layer-gms, .layer-kaeblox, .layer-kaeblox-file, .layer-xiblox, .layer-nshd { display: none; }
 
         body:not(.searching) .layer-root { display: table-row-group; }
 
+        /* Layer Xiblox & NSHD */
+        body:not(.searching) #control-xiblox:checked ~ table .layer-root { display: none; }
+        body:not(.searching) #control-xiblox:checked ~ table .layer-xiblox { display: table-row-group; }
+        body:not(.searching) #control-nshd:checked ~ table .layer-xiblox { display: none; }
+        body:not(.searching) #control-nshd:checked ~ table .layer-nshd { display: table-row-group; }
+
+        /* Layer Lain (Locked) */
+        body:not(.searching) #control-kaeblox:checked ~ table .layer-root { display: none; }
+        body:not(.searching) #control-kaeblox:checked ~ table .layer-kaeblox { display: table-row-group; }
+        body:not(.searching) #control-kaeblox-file:checked ~ table .layer-kaeblox { display: none; }
+        body:not(.searching) #control-kaeblox-file:checked ~ table .layer-kaeblox-file { display: table-row-group; }
         body:not(.searching) #control-apps:checked ~ table .layer-root { display: none; }
         body:not(.searching) #control-apps:checked ~ table .layer-folder { display: table-row-group; }
-
         body:not(.searching) #control-kaetube:checked ~ table .layer-folder { display: none; }
         body:not(.searching) #control-kaetube:checked ~ table .layer-file { display: table-row-group; }
-
         body:not(.searching) #control-gms:checked ~ table .layer-folder { display: none; }
         body:not(.searching) #control-gms:checked ~ table .layer-gms { display: table-row-group; }
 
-        body:not(.searching) #control-kaeblox:checked ~ table .layer-root { display: none; }
-        body:not(.searching) #control-kaeblox:checked ~ table .layer-kaeblox { display: table-row-group; }
-
-        body:not(.searching) #control-kaeblox-file:checked ~ table .layer-kaeblox { display: none; }
-        body:not(.searching) #control-kaeblox-file:checked ~ table .layer-kaeblox-file { display: table-row-group; }
-
         /* --- FOOTER --- */
-        footer { 
-            width: 100%; padding: 40px 0 25px 0; text-align: center; 
-            font-family: 'JetBrains Mono', monospace; font-size: 11px; 
-            color: #475569; letter-spacing: 4px; 
-            text-transform: uppercase; opacity: 0.8; position: relative; z-index: 10;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
-        
+        footer { width: 100%; padding: 40px 0 25px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #475569; letter-spacing: 4px; text-transform: uppercase; opacity: 0.8; position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .roblox-logo { width: 18px; height: 18px; background: var(--rimuru-light); transform: rotate(-15deg); border-radius: 4px; position: relative; flex-shrink: 0; }
         .roblox-logo::after { content: ''; position: absolute; top: 25%; left: 25%; width: 50%; height: 50%; background: #0f172a; border-radius: 1.5px; }
         .svg-icon-blue { width: 22px; height: 22px; fill: var(--rimuru-light); filter: drop-shadow(0 0 6px var(--rimuru-glow)); transform: rotate(-10deg); }
@@ -410,6 +289,21 @@
             <div class="slime-unit sleepy"><div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div></div>
             <div class="slime-unit happy"><div class="slime-character"><div class="mata kiri"></div><div class="mata kanan"></div><div class="blush kiri"></div><div class="blush kanan"></div></div></div>
         </div>
+
+        <div class="slider-container">
+            <div class="slider-wrapper" id="sliderWrapper">
+                <div class="slide active-zoom"><div class="slide-bg-img"></div><div class="slide-content"><div class="slide-title name-red">Pyon Tempest</div><div class="slide-desc">"Melompat lincah meledak-ledak!"</div></div></div>
+                <div class="slide"><div class="slide-bg-img"></div><div class="slide-content"><div class="slide-title name-blue">Rimuru Tempest</div><div class="slide-desc">"Aku bukan slime yang jahat, lho!"</div></div></div>
+                <div class="slide"><div class="slide-bg-img"></div><div class="slide-content"><div class="slide-title" style="color: #86efac !important;">Fuwa Tempest</div><div class="slide-desc">"Terlalu lemas untuk melompat."</div></div></div>
+                <div class="slide"><div class="slide-bg-img"></div><div class="slide-content"><div class="slide-title" style="color: #fde047 !important;">Puri Tempest</div><div class="slide-desc">"Memantul kenyal penuh tawa!"</div></div></div>
+            </div>
+            <div class="slider-dots">
+                <div class="dot active color-angry" onclick="currentSlide(0)"></div>
+                <div class="dot" onclick="currentSlide(1)"></div>
+                <div class="dot" onclick="currentSlide(2)"></div>
+                <div class="dot" onclick="currentSlide(3)"></div>
+            </div>
+        </div>
         
         <div class="search-container">
             <div class="search-wrapper">
@@ -427,87 +321,143 @@
             <input type="checkbox" id="control-kaeblox-file" style="display: none;">
             <input type="checkbox" id="control-kaetube" style="display: none;">
             <input type="checkbox" id="control-gms" style="display: none;">
+            <input type="checkbox" id="control-xiblox" style="display: none;">
+            <input type="checkbox" id="control-nshd" style="display: none;">
 
             <table>
                 <thead><tr><th>LISTED APP</th></tr></thead>
-
-                <tbody id="search-back-container" style="display: none;">
-                    <tr class="back-btn-row">
-                        <td>
-                            <button class="back-btn" onclick="resetSearchUI()">
-                                <span class="back-icon">❮</span>
-                                <span class="back-text-title">Back</span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-
-                <tbody class="layer-root" id="group-layer-root">
+                <tbody id="search-back-container" style="display: none;"><tr class="back-btn-row"><td><button class="back-btn" onclick="resetSearchUI()"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr></tbody>
+                
+                <tbody class="layer-root">
                     <tr class="row-base"><td><div class="cell-content"><label for="control-kaeblox" class="nav-label"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox</strong><span>Roblox Lite For Android 11-17 </span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
-                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Xiblox</strong><span>Roblox Lite For Android 10</span></div></div><span class="badge status-badge">STABLE</span></div></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><label for="control-xiblox" class="nav-label"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Xiblox</strong><span>Roblox Lite For Android 10</span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
                     <tr class="row-base"><td><div class="cell-content"><label for="control-apps" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7L13.57,10.57L17.14,12.14L13.57,13.71L12,17.29L10.43,13.71L6.86,12.14L10.43,10.57L12,7Z"/></svg></div><div class="text-wrap"><strong>Premium App</strong><span>( By KaeruShi )</span></div></label><span class="badge status-badge">STABLE</span></div></td></tr>
                 </tbody>
 
-                <tbody class="layer-folder" id="group-layer-folder">
-                    <tr class="back-btn-row"><td><button class="back-btn"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
+                <tbody class="layer-xiblox">
+                    <tr class="back-btn-row"><td><button class="back-btn" onclick="window.history.back()"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div class="text-wrap"><strong>Same HWID</strong><span class="sub-checked">✓ Last Update</span></div></div><span class="badge status-badge">LOCKED</span></div></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><label for="control-nshd" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div class="text-wrap"><strong>No same HWID</strong><span class="sub-checked">✓ Last Update</span></div></label><label for="control-nshd" class="badge badge-btn">OPEN</label></div></td></tr>
+                </tbody>
+
+                <tbody class="layer-nshd">
+                    <tr class="back-btn-row"><td><button class="back-btn" onclick="window.history.back()"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Xiblox_01 [ NSHD ].apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 106MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Xieblox_Nosame/Xiblox_01.NSHD.apk">DOWNLOAD</span></div></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Xiblox_02 [ NSHD ].apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 106MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Xieblox_Nosame/Xiblox_02.NSHD.apk">DOWNLOAD</span></div></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Xiblox_03 [ NSHD ].apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 106MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Xieblox_Nosame/Xiblox_03.NSHD.apk">DOWNLOAD</span></div></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Xiblox_04 [ NSHD ].apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 106MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Xieblox_Nosame/Xiblox_04.NSHD.apk">DOWNLOAD</span></div></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Xiblox_05 [ NSHD ].apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 106MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Xieblox_Nosame/Xiblox_05.NSHD.apk">DOWNLOAD</span></div></td></tr>
+                </tbody>
+
+                <tbody class="layer-folder">
+                    <tr class="back-btn-row"><td><button class="back-btn" onclick="window.history.back()"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
                     <tr class="row-base"><td><div class="cell-content"><label for="control-kaetube" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div class="text-wrap"><strong>YouTube Premium</strong><span class="sub-checked">✓ Last Update</span></div></label><label for="control-kaetube" class="badge badge-btn">OPEN</label></div></td></tr>
                     <tr class="row-base"><td><div class="cell-content"><label for="control-gms" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div class="text-wrap"><strong>Optional Tools YT</strong><span class="sub-checked">✓ Last Update</span></div></label><label for="control-gms" class="badge badge-btn">OPEN</label></div></td></tr>
                 </tbody>
 
-                <tbody class="layer-file" id="group-layer-file">
-                    <tr class="back-btn-row"><td><button class="back-btn"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
-                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.215-11.626-.215-15.23 0-3.897.233-4.382 2.307-4.385 8.816.003 6.51.488 8.583 4.385 8.816 3.604.215 11.626.215 15.23 0 3.897-.233 4.382-2.307 4.385-8.816-.003-6.51-.488-8.583-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z"/></svg></div><div class="text-wrap"><strong>KaeTube.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">78MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/KaeTube.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                <tbody class="layer-file">
+                    <tr class="back-btn-row"><td><button class="back-btn" onclick="window.history.back()"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.215-11.626-.215-15.23 0-3.897.233-4.382 2.307-4.385 8.816.003 6.51.488 8.583 4.385 8.816 3.604.215 11.626.215 15.23 0 3.897-.233 4.382-2.307 4.385-8.816-.003-6.51-.488-8.583-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z"/></svg></div><div class="text-wrap"><strong>KaeTube.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 78MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/KaeTube.apk">DOWNLOAD</span></div></td></tr>
                 </tbody>
 
-                <tbody class="layer-gms" id="group-layer-gms">
-                    <tr class="back-btn-row"><td><button class="back-btn"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
-                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C11.79,2 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5Z"/></svg></div><div class="text-wrap"><strong>GMS_Core.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">37.9MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/GMS_Core.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                <tbody class="layer-gms">
+                    <tr class="back-btn-row"><td><button class="back-btn" onclick="window.history.back()"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C11.79,2 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5Z"/></svg></div><div class="text-wrap"><strong>GMS_Core.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 37.9MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/Kaetube%26Gms/GMS_Core.apk">DOWNLOAD</span></div></td></tr>
                 </tbody>
 
-                <tbody class="layer-kaeblox" id="group-layer-kaeblox">
-                    <tr class="back-btn-row"><td><button class="back-btn"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
+                <tbody class="layer-kaeblox">
+                    <tr class="back-btn-row"><td><button class="back-btn" onclick="window.history.back()"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
                     <tr class="row-base"><td><div class="cell-content"><label for="control-kaeblox-file" class="nav-label"><div class="icon-square"><svg class="svg-icon-blue" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg></div><div class="text-wrap"><strong>Kaeblox V2.713.911</strong><span class="sub-checked">✓ Last Update</span></div></label><label for="control-kaeblox-file" class="badge badge-btn">OPEN</label></div></td></tr>
                 </tbody>
 
-                <tbody class="layer-kaeblox-file" id="group-layer-kaeblox-file">
-                    <tr class="back-btn-row"><td><button class="back-btn"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
-                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_1.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">94.3MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_1.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_2.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">94.3MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_2.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_3.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">94.3MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_3.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_4.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">94.3MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_4.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
-                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_5.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">94.3MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><a href="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_5.apk" style="text-decoration:none;"><span class="badge badge-btn">DOWNLOAD</span></a></div></td></tr>
+                <tbody class="layer-kaeblox-file">
+                    <tr class="back-btn-row"><td><button class="back-btn" onclick="window.history.back()"><span class="back-icon">❮</span><span class="back-text-title">Back</span></button></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_1.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 94.3MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_1.apk">DOWNLOAD</span></div></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_2.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 94.3MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_2.apk">DOWNLOAD</span></div></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_3.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 94.3MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_3.apk">DOWNLOAD</span></div></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_4.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 94.3MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_4.apk">DOWNLOAD</span></div></td></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_5.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 94.3MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_5.apk">DOWNLOAD</span></div></td></tr>
                 </tbody>
 
             </table>
         </div>
     </div> 
 
-    <footer>
-        🌀 KAERUSHI TEMPEST INC 🌀
-    </footer>
+    <footer>🌀 KAERUSHI TEMPEST INC 🌀</footer>
 
     <script>
-        const inputs = document.querySelectorAll('input[type="checkbox"]');
+        // ======================= TAMBAHAN: FUNGSI DOWNLOAD UNTUK SEMUA TOMBOL BADGE-BTN =======================
+        // Mencari semua elemen dengan class "badge-btn" yang memiliki atribut data-url
+        const downloadBtns = document.querySelectorAll('.badge-btn[data-url]');
+        downloadBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Mencegah event bubbling
+                const url = btn.getAttribute('data-url');
+                if (url) {
+                    window.open(url, '_blank');
+                } else {
+                    console.warn('URL tidak ditemukan untuk tombol ini');
+                }
+            });
+        });
 
-        /* --- LOGIKA HISTORY BACK GESTUR --- */
+        // ======================= KODE ASLI (TIDAK DIUBAH) =======================
+        const inputs = document.querySelectorAll('input[type="checkbox"]');
+        let currentSlideIndex = 0;
+        const sliderWrapper = document.getElementById('sliderWrapper');
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length; 
+        const dotColors = ['color-angry', 'color-rimuru', 'color-sleepy', 'color-happy'];
+
+        function showSlide(index) {
+            slides[currentSlideIndex].classList.remove('active-zoom');
+            currentSlideIndex = index;
+            sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
+            slides[currentSlideIndex].classList.add('active-zoom');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+                dotColors.forEach(cls => dot.classList.remove(cls));
+                if (i === index) { dot.classList.add(dotColors[index]); }
+            });
+        }
+
+        function currentSlide(index) { showSlide(index); resetAutoSlide(); }
+
+        let autoSlideTimer = setInterval(() => {
+            let nextIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(nextIndex);
+        }, 6500);
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = setInterval(() => {
+                let nextIndex = (currentSlideIndex + 1) % totalSlides;
+                showSlide(nextIndex);
+            }, 6500);
+        }
+
+        /* --- LOGIKA HISTORY & LAYERING --- */
         function stepBackLinear() {
+            if (document.getElementById('control-nshd').checked) {
+                document.getElementById('control-nshd').checked = false;
+                return "control-xiblox";
+            }
+            if (document.getElementById('control-xiblox').checked) {
+                document.getElementById('control-xiblox').checked = false;
+                return null;
+            }
             if (document.getElementById('control-kaeblox-file').checked) {
                 document.getElementById('control-kaeblox-file').checked = false; 
                 return "control-kaeblox"; 
             }
-            else if (document.getElementById('control-kaetube').checked) {
+            if (document.getElementById('control-kaetube').checked || document.getElementById('control-gms').checked) {
                 document.getElementById('control-kaetube').checked = false;
-                return "control-apps";
-            }
-            else if (document.getElementById('control-gms').checked) {
                 document.getElementById('control-gms').checked = false;
                 return "control-apps";
             }
-            else if (document.getElementById('control-kaeblox').checked) {
+            if (document.getElementById('control-kaeblox').checked || document.getElementById('control-apps').checked) {
                 document.getElementById('control-kaeblox').checked = false;
-                return null;
-            }
-            else if (document.getElementById('control-apps').checked) {
                 document.getElementById('control-apps').checked = false;
                 return null;
             }
@@ -516,138 +466,66 @@
 
         inputs.forEach(input => {
             input.addEventListener('change', () => {
-                if (input.checked) {
-                    // FIX: Tetap rekam state folder tapi tanpa mengotori URL di address bar browser
-                    history.pushState({ folderId: input.id }, '');
-                }
+                if (input.checked) { history.pushState({ folderId: input.id }, ''); }
             });
         });
 
-        function handlePopAction(event) {
+        window.addEventListener('popstate', (event) => {
+            if (document.body.classList.contains('searching')) { resetSearchUI(); return; }
             const checkedInputs = document.querySelectorAll('input[type="checkbox"]:checked');
-            
-            if (checkedInputs.length === 0) {
-                return; 
-            }
-
+            if (checkedInputs.length === 0) return; 
             const nextHash = stepBackLinear();
-            
-            if (nextHash === null) {
-                // FIX: Menghapus state di background tanpa memicu kemunculan tag di link
-                history.replaceState(null, '');
-            } else {
-                history.replaceState({ folderId: nextHash }, '');
-            }
-        }
-
-        window.addEventListener('popstate', handlePopAction);
-
-        document.querySelectorAll('.back-btn').forEach(btn => {
-            if (btn.closest('#search-back-container')) return;
-
-            btn.addEventListener('click', (e) => {
-                resetSearchUI();
-                window.history.back();
-            });
+            if (nextHash === null) { history.replaceState(null, ''); } 
+            else { history.replaceState({ folderId: nextHash }, ''); }
         });
 
-        /* --- FUNGSI RESET TAMPILAN SEARCH --- */
+        /* --- FUNGSI SEARCH (HANYA UNTUK APK) --- */
         function resetSearchUI() {
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) searchInput.value = "";
-            
+            document.getElementById('searchInput').value = "";
             document.body.classList.remove('searching');
-
-            const rows = document.querySelectorAll('.row-base');
-            rows.forEach(row => row.style.display = "");
-            
-            const backRows = document.querySelectorAll('.back-btn-row');
-            backRows.forEach(br => br.style.display = "");
-
             const allTbodys = document.querySelectorAll('tbody');
-            allTbodys.forEach(tbody => {
-                tbody.style.display = ""; 
-            });
-
+            allTbodys.forEach(tbody => { tbody.style.display = ""; });
             document.getElementById('search-back-container').style.display = "none";
-
             const oldNoResult = document.getElementById('no-result-row');
             if (oldNoResult) oldNoResult.remove();
         }
 
-        /* --- LOGIKA PENCARIAN FILE APK SAJA --- */
         function executeSearch() {
-            const searchInput = document.getElementById('searchInput');
-            const filter = searchInput.value.toLowerCase().trim();
+            const filter = document.getElementById('searchInput').value.toLowerCase().trim();
             const rows = document.querySelectorAll('.row-base');
-            const backRows = document.querySelectorAll('.back-btn-row');
-            const tbodyRoot = document.getElementById('group-layer-root');
             const searchBackContainer = document.getElementById('search-back-container');
-
             const oldNoResult = document.getElementById('no-result-row');
             if (oldNoResult) oldNoResult.remove();
-
-            if (filter === "") {
-                inputs.forEach(input => input.checked = false);
-                resetSearchUI();
-                history.replaceState(null, '');
-                return;
-            }
+            if (filter === "") { resetSearchUI(); return; }
 
             let totalFound = 0;
             inputs.forEach(input => input.checked = false);
-
             document.body.classList.add('searching');
-
-            backRows.forEach(br => {
-                br.style.display = "none";
-            });
-
-            const allTbodys = document.querySelectorAll('tbody');
-            allTbodys.forEach(tbody => {
-                if (tbody.id !== 'search-back-container') {
-                    tbody.style.display = "none";
-                }
+            document.querySelectorAll('tbody').forEach(tbody => {
+                if (tbody.id !== 'search-back-container') tbody.style.display = "none";
             });
 
             rows.forEach(row => {
-                const titleElement = row.querySelector('.text-wrap strong');
-                const titleText = titleElement ? titleElement.innerText.toLowerCase() : "";
-                const isApkFile = row.querySelector('.pill-cell.p-apk') !== null;
-
-                if (isApkFile && titleText.includes(filter)) {
-                    row.style.display = ""; 
-                    totalFound++;
-                    const parentTbody = row.closest('tbody');
-                    if (parentTbody) {
-                        parentTbody.style.display = "table-row-group";
-                    }
-                } else {
-                    row.style.display = "none"; 
-                }
+                const titleText = row.querySelector('.text-wrap strong')?.innerText.toLowerCase() || "";
+                if (row.querySelector('.p-apk') && titleText.includes(filter)) {
+                    row.style.display = ""; totalFound++;
+                    row.closest('tbody').style.display = "table-row-group";
+                } else { row.style.display = "none"; }
             });
 
             if (totalFound > 0) {
                 searchBackContainer.style.display = "table-row-group";
-                searchBackContainer.querySelector('.back-btn-row').style.display = "flex";
             } else {
                 searchBackContainer.style.display = "none";
-                
                 const noResult = document.createElement('tr');
                 noResult.id = "no-result-row";
                 noResult.innerHTML = `<td style="text-align:center; padding: 20px; color: #64748b; font-family:'JetBrains Mono',monospace; font-size:12px;">❌ APK File Not Found!</td>`;
-                tbodyRoot.appendChild(noResult);
-                tbodyRoot.style.display = "table-row-group";
-                history.replaceState(null, '');
-                return;
+                document.querySelector('.layer-root').appendChild(noResult);
+                document.querySelector('.layer-root').style.display = "table-row-group";
             }
         }
 
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                executeSearch();
-            }
-        });
+        document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') executeSearch(); });
     </script>
 </body>
 </html>
