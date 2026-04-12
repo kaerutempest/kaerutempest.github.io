@@ -20,13 +20,12 @@
             --neon-green: #10b981 !important;
         }
         body {
-            /* BACKGROUND COMMAND YANG DITAMBAHKAN */
             background-image: url('Rimuru.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            background-color: var(--bg-deep); /* fallback jika gambar tidak ditemukan */
+            background-color: var(--bg-deep);
             margin: 0;
             padding: 0;
             display: flex;
@@ -204,15 +203,24 @@
         .search-input:focus { outline: none; border-color: var(--rimuru-main); background: rgba(15, 23, 42, 0.85); box-shadow: 0 0 15px var(--rimuru-glow); }
         .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; fill: #64748b; pointer-events: none; transition: 0.2s; }
         .search-input:focus + .search-icon { fill: var(--rimuru-light); }
+        
+        /* Tombol search dengan background transparan gelap seperti kolom search */
         .search-btn {
-            background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3);
-            border-radius: 12px; width: 48px; height: 48px; display: flex;
-            align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;
+            background: rgba(15, 23, 42, 0.6); /* Sama seperti .search-input */
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 12px; 
+            width: 48px; 
+            height: 48px; 
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            transition: all 0.2s ease;
         }
-        .search-btn:hover { background: rgba(14, 165, 233, 0.25); border-color: var(--rimuru-light); box-shadow: 0 0 12px var(--rimuru-glow); }
-        .search-btn:active { transform: scale(0.95); }
-        .play-icon { width: 16px; height: 16px; fill: var(--rimuru-light); transition: 0.2s; }
-        .search-btn:hover .play-icon { fill: #fff; }
+        .search-btn:hover { background: rgba(15, 23, 42, 0.85); border-color: var(--rimuru-light); box-shadow: 0 0 12px var(--rimuru-glow); }
+        .search-btn:active { transform: scale(0.95); background: rgba(15, 23, 42, 0.9); }
+        .play-icon { width: 16px; height: 16px; fill: var(--rimuru-light); transition: 0.2s; } /* Ikon biru terang */
+        .search-btn:hover .play-icon { fill: #ffffff; }
 
         /* --- SISTEM TABEL FUTURISTIK --- */
         .table-container { 
@@ -220,12 +228,41 @@
             width: 100%; min-height: 520px; box-sizing: border-box;
         }
         table { width: 100%; border-collapse: separate; border-spacing: 0 10px; table-layout: fixed; box-sizing: border-box; }
-        th { text-align: left; padding: 10px 16px; font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(14, 165, 233, 0.2); padding-bottom: 8px; }
+        th { 
+            text-align: left; 
+            padding: 10px 16px; 
+            font-size: 11px; 
+            color: #cbd5e1; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            border-bottom: 1px solid rgba(14, 165, 233, 0.2); 
+            padding-bottom: 8px; 
+            font-weight: 600;
+        }
         .row-base { background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .row-base td:first-child { border-top-left-radius: 16px; border-bottom-left-radius: 16px; border-left: 1px solid var(--border); }
         .row-base td:last-child { border-top-right-radius: 16px; border-bottom-right-radius: 16px; border-right: 1px solid var(--border); }
         .row-base td { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .row-base:hover { background: rgba(14, 165, 233, 0.05); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(14, 165, 233, 0.1); }
+        
+        /* DISABLE EFEK TRANSPARAN SAAT DIKLIK */
+        .row-base:active, .nav-label:active, .badge-btn:active, .back-btn:active,
+        .row-base:focus, .nav-label:focus, .badge-btn:focus, .back-btn:focus {
+            background: var(--glass) !important;
+            opacity: 1 !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        .badge-btn:active {
+            background: rgba(14, 165, 233, 0.2) !important;
+            transform: scale(0.95) !important;
+            color: #fff !important;
+        }
+        .back-btn:active {
+            background: var(--glass) !important;
+            transform: scale(0.96) translateY(0) !important;
+        }
+        
         .cell-content { padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: nowrap; width: 100%; box-sizing: border-box; }
         .nav-label { display: flex; align-items: center; gap: 12px; color: #fff; transition: 0.2s; cursor: pointer; flex: 1; min-width: 0; }
         .text-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
@@ -256,18 +293,15 @@
         .back-btn:active { transform: scale(0.96) translateY(0); }
 
         /* --- SISTEM LAYER ANTI BOCOR --- */
-        /* Pastikan checkbox default sembunyi */
         .layer-root, .layer-folder, .layer-file, .layer-gms, .layer-kaeblox, .layer-kaeblox-file, .layer-xiblox, .layer-nshd { display: none; }
 
         body:not(.searching) .layer-root { display: table-row-group; }
 
-        /* Layer Xiblox & NSHD */
         body:not(.searching) #control-xiblox:checked ~ table .layer-root { display: none; }
         body:not(.searching) #control-xiblox:checked ~ table .layer-xiblox { display: table-row-group; }
         body:not(.searching) #control-nshd:checked ~ table .layer-xiblox { display: none; }
         body:not(.searching) #control-nshd:checked ~ table .layer-nshd { display: table-row-group; }
 
-        /* Layer Lain (Locked) */
         body:not(.searching) #control-kaeblox:checked ~ table .layer-root { display: none; }
         body:not(.searching) #control-kaeblox:checked ~ table .layer-kaeblox { display: table-row-group; }
         body:not(.searching) #control-kaeblox-file:checked ~ table .layer-kaeblox { display: none; }
@@ -280,7 +314,23 @@
         body:not(.searching) #control-gms:checked ~ table .layer-gms { display: table-row-group; }
 
         /* --- FOOTER --- */
-        footer { width: 100%; padding: 40px 0 25px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #475569; letter-spacing: 4px; text-transform: uppercase; opacity: 0.8; position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        footer { 
+            width: 100%; 
+            padding: 40px 0 25px 0; 
+            text-align: center; 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 11px; 
+            color: #cbd5e1; /* SAMA DENGAN WARNA th (LISTED APP) */
+            letter-spacing: 4px; 
+            text-transform: uppercase; 
+            opacity: 1; /* Tidak transparan */
+            position: relative; 
+            z-index: 10; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+        }
         .roblox-logo { width: 18px; height: 18px; background: var(--rimuru-light); transform: rotate(-15deg); border-radius: 4px; position: relative; flex-shrink: 0; }
         .roblox-logo::after { content: ''; position: absolute; top: 25%; left: 25%; width: 50%; height: 50%; background: #0f172a; border-radius: 1.5px; }
         .svg-icon-blue { width: 22px; height: 22px; fill: var(--rimuru-light); filter: drop-shadow(0 0 6px var(--rimuru-glow)); transform: rotate(-10deg); }
@@ -389,7 +439,7 @@
                     <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_2.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 105MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_2.apk">DOWNLOAD</span></div></td></tr>
                     <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_3.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 105MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_3.apk">DOWNLOAD</span></div></td></tr>
                     <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_4.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 105MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_4.apk">DOWNLOAD</span></div></td></tr>
-                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_5.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 105MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_5.apk">DOWNLOAD</span></div></tr></tr>
+                    <tr class="row-base"><td><div class="cell-content"><div class="nav-label" style="cursor:default;"><div class="icon-square"><div class="roblox-logo"></div></div><div class="text-wrap"><strong>Kaeblox_5.apk</strong><div class="info-table-pill"><div class="pill-cell p-size">Size 105MB</div><div class="pill-cell p-safe">✓ SAFE</div><div class="pill-cell p-apk">APK</div></div></div></div><span class="badge badge-btn" data-url="https://github.com/kaerutempest/kaerutempest.github.io/releases/download/2.713/Kaeblox_5.apk">DOWNLOAD</span></div></td></tr>
                 </tbody>
 
             </table>
@@ -399,18 +449,13 @@
     <footer>🌀 KAERUSHI TEMPEST INC 🌀</footer>
 
     <script>
-        // ======================= TAMBAHAN: FUNGSI DOWNLOAD UNTUK SEMUA TOMBOL BADGE-BTN =======================
-        // Mencari semua elemen dengan class "badge-btn" yang memiliki atribut data-url
+        // ======================= FUNGSI DOWNLOAD =======================
         const downloadBtns = document.querySelectorAll('.badge-btn[data-url]');
         downloadBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Mencegah event bubbling
+                e.stopPropagation();
                 const url = btn.getAttribute('data-url');
-                if (url) {
-                    window.open(url, '_blank');
-                } else {
-                    console.warn('URL tidak ditemukan untuk tombol ini');
-                }
+                if (url) window.open(url, '_blank');
             });
         });
 
@@ -431,7 +476,7 @@
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
                 dotColors.forEach(cls => dot.classList.remove(cls));
-                if (i === index) { dot.classList.add(dotColors[index]); }
+                if (i === index) dot.classList.add(dotColors[index]);
             });
         }
 
@@ -450,7 +495,6 @@
             }, 6500);
         }
 
-        /* --- LOGIKA HISTORY & LAYERING --- */
         function stepBackLinear() {
             if (document.getElementById('control-nshd').checked) {
                 document.getElementById('control-nshd').checked = false;
@@ -479,7 +523,7 @@
 
         inputs.forEach(input => {
             input.addEventListener('change', () => {
-                if (input.checked) { history.pushState({ folderId: input.id }, ''); }
+                if (input.checked) history.pushState({ folderId: input.id }, '');
             });
         });
 
@@ -488,11 +532,10 @@
             const checkedInputs = document.querySelectorAll('input[type="checkbox"]:checked');
             if (checkedInputs.length === 0) return; 
             const nextHash = stepBackLinear();
-            if (nextHash === null) { history.replaceState(null, ''); } 
-            else { history.replaceState({ folderId: nextHash }, ''); }
+            if (nextHash === null) history.replaceState(null, ''); 
+            else history.replaceState({ folderId: nextHash }, '');
         });
 
-        /* --- FUNGSI SEARCH (HANYA UNTUK APK) --- */
         function resetSearchUI() {
             document.getElementById('searchInput').value = "";
             document.body.classList.remove('searching');
